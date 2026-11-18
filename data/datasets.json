@@ -1,0 +1,1064 @@
+{
+ "datasets": [
+  {
+   "id": "Stanton2026",
+   "short": "Stanton 2026",
+   "journal": "Nat Struct Mol Biol",
+   "year": 2026,
+   "title": "EMC chaperone activity is required for cotranslational calcium channel assembly",
+   "doi": "10.1038/s41594-026-01916-2",
+   "coverage": "full table",
+   "species": "human",
+   "perturbation": "EMC8 knockout",
+   "system": "HEK293 cells",
+   "replicates": "Four knockout and four wild-type samples",
+   "fraction": "Whole-cell proteome, DIA-PASEF",
+   "reanalysis": "We use the authors’ MSstats comparison of knockout against wild type as published. Proteins the authors flag as missing in one condition are shown as present or absent rather than as a ratio.",
+   "verdict": "reproduces",
+   "reproduction": "Reproduces exactly: our values match the authors’ table (r = 1.000), with EMC8 at −5.35 log2. Fourteen proteins pass adjusted p < 0.05 and thirty pass adjusted p < 0.1.",
+   "caveats": [
+    "EMC8 is a peripheral subunit. The other subunits fall modestly (median −0.67) and its paralogue EMC9 rises (+2.42), so the complex is reduced rather than lost."
+   ],
+   "conditions": [
+    {
+     "name": "EMC8-KO",
+     "perturbation": "EMC8 knockout",
+     "subunit": 8,
+     "target": -5.35,
+     "others": {
+      "1": -0.51,
+      "2": -1.23,
+      "3": -1.02,
+      "4": -1.14,
+      "5": -0.5,
+      "6": -0.31,
+      "7": -0.74,
+      "9": 2.42,
+      "10": -0.67
+     },
+     "median": -0.67,
+     "status": "reduced",
+     "basis": "median of 9 other subunits",
+     "n_proteins": 9200,
+     "n_quantified": 9183,
+     "n_membrane": 1545
+    }
+   ],
+   "originals": [
+    {
+     "name": "Stanton 2026 NSMB.xlsx",
+     "path": "downloads/original/Stanton2026/Stanton 2026 NSMB.xlsx",
+     "bytes": 5760307
+    }
+   ],
+   "csv": "downloads/reanalysis/Stanton2026.csv",
+   "n_rows": 9200,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Shurtleff2018",
+   "short": "Shurtleff 2018",
+   "journal": "eLife",
+   "year": 2018,
+   "title": "The ER membrane protein complex interacts cotranslationally to enable biogenesis of multipass membrane proteins",
+   "doi": "10.7554/eLife.37018",
+   "coverage": "full table",
+   "species": "human",
+   "perturbation": "EMC2 and EMC4 knockdown by CRISPRi, one guide each",
+   "system": "K562 cells",
+   "replicates": "Three SILAC replicates per guide",
+   "fraction": "Whole-cell proteome, SILAC (knockdown light, control heavy)",
+   "reanalysis": "The mean of the three SILAC log2 ratios per guide. The authors give no p-values, so we test the three ratios against zero (one-sample t-test).",
+   "verdict": "holds",
+   "reproduction": "Holds: the 11 proteins the authors call hits (median 4 transmembrane segments) are recovered. The two guides agree (r = 0.73), and 67 proteins fall below −0.5 log2 with both, including all 11.",
+   "caveats": [
+    "EMC2 knockdown loses the complex (other subunits median −1.13); EMC4 knockdown leaves it intact (−0.07), so the two guides are not equivalent perturbations."
+   ],
+   "conditions": [
+    {
+     "name": "EMC2 CRISPRi",
+     "perturbation": "EMC2 CRISPRi",
+     "subunit": 2,
+     "target": -1.91,
+     "others": {
+      "1": -0.72,
+      "3": -1.92,
+      "4": -1.84,
+      "6": -0.44,
+      "7": -1.09,
+      "8": -1.57,
+      "9": -1.18,
+      "10": -0.56
+     },
+     "median": -1.13,
+     "status": "lost",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 5948,
+     "n_quantified": 5948,
+     "n_membrane": 775
+    },
+    {
+     "name": "EMC4 CRISPRi",
+     "perturbation": "EMC4 CRISPRi",
+     "subunit": 4,
+     "target": -2.89,
+     "others": {
+      "1": 0.04,
+      "2": -0.06,
+      "3": -0.09,
+      "6": 0.02,
+      "7": 0.08,
+      "8": -0.12,
+      "9": -0.14,
+      "10": -0.2
+     },
+     "median": -0.07,
+     "status": "intact",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 5948,
+     "n_quantified": 5948,
+     "n_membrane": 775
+    }
+   ],
+   "originals": [
+    {
+     "name": "Shurtleff 2018 eLife.xlsx",
+     "path": "downloads/original/Shurtleff2018/Shurtleff 2018 eLife.xlsx",
+     "bytes": 875747
+    }
+   ],
+   "csv": "downloads/reanalysis/Shurtleff2018.csv",
+   "n_rows": 11896,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Tian2019",
+   "short": "Tian 2019",
+   "journal": "Cell Rep",
+   "year": 2019,
+   "title": "Proteomic analysis identifies membrane proteins dependent on the ER membrane protein complex",
+   "doi": "10.1016/j.celrep.2019.08.006",
+   "coverage": "full table",
+   "species": "human",
+   "perturbation": "EMC4 knockout and EMC6 knockout, separately",
+   "system": "HeLa cells",
+   "replicates": "Three knockout clones per subunit against three wild-type samples",
+   "fraction": "Membrane proteome as described by the authors",
+   "reanalysis": "We use the authors’ log2 ratio and p-value for each knockout, calculated from the three clones against wild type.",
+   "verdict": "does not reproduce",
+   "reproduction": "Does not reproduce: the paper names 36 EMC-dependent proteins, but at 1.5-fold and p < 0.05 in both knockouts 14 proteins pass.",
+   "caveats": [
+    "The two knockouts are not equivalent: the complex survives in the EMC4 clones (other subunits median +0.12) and is lost in the EMC6 clones (−1.57)."
+   ],
+   "conditions": [
+    {
+     "name": "EMC4-KO",
+     "perturbation": "EMC4 knockout",
+     "subunit": 4,
+     "target": -0.76,
+     "others": {
+      "1": 0.14,
+      "2": 0.12,
+      "3": 0.17,
+      "5": 0.12,
+      "6": 0.09,
+      "7": -0.15,
+      "8": 0.21,
+      "10": -0.06
+     },
+     "median": 0.12,
+     "status": "intact",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 4446,
+     "n_quantified": 4446,
+     "n_membrane": 807
+    },
+    {
+     "name": "EMC6-KO",
+     "perturbation": "EMC6 knockout",
+     "subunit": 6,
+     "target": -1.98,
+     "others": {
+      "1": -0.89,
+      "2": -1.49,
+      "3": -2.01,
+      "4": -2.07,
+      "5": -2.32,
+      "7": -0.99,
+      "8": -1.64,
+      "10": -1.12
+     },
+     "median": -1.57,
+     "status": "lost",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 4446,
+     "n_quantified": 4446,
+     "n_membrane": 807
+    }
+   ],
+   "originals": [
+    {
+     "name": "Tian 2019 Cell Rep.xlsx",
+     "path": "downloads/original/Tian2019/Tian 2019 Cell Rep.xlsx",
+     "bytes": 1637887
+    }
+   ],
+   "csv": "downloads/reanalysis/Tian2019.csv",
+   "n_rows": 8892,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Volkmar2019",
+   "short": "Volkmar 2019",
+   "journal": "J Cell Sci",
+   "year": 2019,
+   "title": "The ER membrane protein complex promotes biogenesis of sterol-related enzymes maintaining cholesterol homeostasis",
+   "doi": "10.1242/jcs.223453",
+   "coverage": "full table",
+   "species": "human",
+   "perturbation": "EMC5 knockout and EMC6 knockout, two clones each",
+   "system": "U2OS cells",
+   "replicates": "One SILAC ratio per clone; four clones in two triple-SILAC runs",
+   "fraction": "Intracellular fraction only (the supernatant left after surface biotinylation); most plasma membrane proteins are removed",
+   "reanalysis": "We re-processed the deposited MaxQuant output: log2 of the normalised ratio of each clone to wild type, with reverse hits, contaminants and site-only groups removed.",
+   "verdict": "holds",
+   "reproduction": "Holds: all 11 proteins of the paper’s Fig. 5A are recovered with the authors’ rule (at least 30% lower in all four clones), plus two histones. Per-clone counts are 80, 77, 82 and 157 (#5-4, #6-14, #1-1, #3-9) against the paper’s 81, 79, 89 and 159.",
+   "caveats": [
+    "SOAT1 was not detected in this proteome; the paper’s SOAT1 claim rests on immunoblots.",
+    "The EMC5 and EMC6 runs behave as one core-subunit experiment with four clones; clone #6-14 is the outlier.",
+    "Only one other EMC subunit is detected per run, so the complex call rests on one subunit.",
+    "The cell-surface fraction was never deposited."
+   ],
+   "conditions": [
+    {
+     "name": "dEMC5 clone 5-4",
+     "perturbation": "EMC5 knockout",
+     "subunit": 5,
+     "target": null,
+     "others": {
+      "2": -3.0
+     },
+     "median": -3.0,
+     "status": "lost",
+     "basis": "one other subunit measured",
+     "n_proteins": 731,
+     "n_quantified": 731,
+     "n_membrane": 108
+    },
+    {
+     "name": "dEMC5 clone 6-14",
+     "perturbation": "EMC5 knockout",
+     "subunit": 5,
+     "target": null,
+     "others": {
+      "2": -1.04
+     },
+     "median": -1.04,
+     "status": "lost",
+     "basis": "one other subunit measured",
+     "n_proteins": 731,
+     "n_quantified": 731,
+     "n_membrane": 108
+    },
+    {
+     "name": "dEMC6 clone 1-1",
+     "perturbation": "EMC6 knockout",
+     "subunit": 6,
+     "target": null,
+     "others": {
+      "1": -1.28
+     },
+     "median": -1.28,
+     "status": "lost",
+     "basis": "one other subunit measured",
+     "n_proteins": 848,
+     "n_quantified": 848,
+     "n_membrane": 128
+    },
+    {
+     "name": "dEMC6 clone 3-9",
+     "perturbation": "EMC6 knockout",
+     "subunit": 6,
+     "target": null,
+     "others": {
+      "1": -0.97
+     },
+     "median": -0.97,
+     "status": "reduced",
+     "basis": "one other subunit measured",
+     "n_proteins": 848,
+     "n_quantified": 848,
+     "n_membrane": 128
+    }
+   ],
+   "originals": [
+    {
+     "name": "txt_360_2_SN.zip",
+     "path": "downloads/original/Volkmar2019/txt_360_2_SN.zip",
+     "bytes": 9245816
+    },
+    {
+     "name": "txt_360_4_SN.zip",
+     "path": "downloads/original/Volkmar2019/txt_360_4_SN.zip",
+     "bytes": 10434941
+    },
+    {
+     "name": "sample_identities.docx",
+     "path": "downloads/original/Volkmar2019/sample_identities.docx",
+     "bytes": 11435
+    },
+    {
+     "name": "Volkmar_2019_reanalysis.xlsx",
+     "path": "downloads/original/Volkmar2019/Volkmar_2019_reanalysis.xlsx",
+     "bytes": 59539
+    }
+   ],
+   "csv": "downloads/reanalysis/Volkmar2019.csv",
+   "n_rows": 3158,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "DeCarvalho2026",
+   "short": "De Carvalho 2026",
+   "journal": "Nat Commun",
+   "year": 2026,
+   "title": "A critical role for the ER membrane complex (EMC) in lipid homeostasis",
+   "doi": "10.1038/s41467-026-78684-6",
+   "coverage": "full table",
+   "species": "mouse",
+   "perturbation": "Emc3 conditional knockout",
+   "system": "Mouse liver, inguinal white fat (iWAT) and brown fat (iBAT)",
+   "replicates": "Three knockout and three control mice per tissue",
+   "fraction": "Whole-tissue proteome",
+   "reanalysis": "We use the authors’ Perseus differences and p-values. Where Perseus could not test a protein (fewer than two values on a side), the p-value is left empty rather than set to 1.",
+   "verdict": "holds",
+   "reproduction": "Holds: FITM2 is lower in all three tissues, as reported. The iWAT comparison is underpowered (three proteins significant of 6,328).",
+   "caveats": [
+    "Many iWAT values rest on fewer than three mice per side; FDFT1 in iWAT (−3.44) rests on a single knockout animal.",
+    "Mouse membrane calls use two sources, the human membrane list through orthology and the authors’ own single- or multi-pass annotation; the page says which applies."
+   ],
+   "conditions": [
+    {
+     "name": "Emc3 cKO liver",
+     "perturbation": "Emc3 conditional knockout",
+     "subunit": 3,
+     "target": -2.7,
+     "others": {
+      "1": -2.3,
+      "2": -1.83,
+      "4": -2.55,
+      "5": -2.15,
+      "6": -1.24,
+      "7": -2.41,
+      "8": -1.37,
+      "10": -1.99
+     },
+     "median": -2.07,
+     "status": "lost",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 5827,
+     "n_quantified": 5827,
+     "n_membrane": 969
+    },
+    {
+     "name": "Emc3 cKO iWAT",
+     "perturbation": "Emc3 conditional knockout",
+     "subunit": 3,
+     "target": -1.77,
+     "others": {
+      "1": -2.39,
+      "2": -0.54,
+      "4": -3.38,
+      "5": -0.43,
+      "6": -1.17,
+      "7": -2.48,
+      "8": -0.22,
+      "10": -1.51
+     },
+     "median": -1.34,
+     "status": "lost",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 6251,
+     "n_quantified": 6251,
+     "n_membrane": 958
+    },
+    {
+     "name": "Emc3 cKO iBAT",
+     "perturbation": "Emc3 conditional knockout",
+     "subunit": 3,
+     "target": -2.66,
+     "others": {
+      "1": -2.32,
+      "2": -1.65,
+      "4": -3.6,
+      "5": -1.99,
+      "6": -1.53,
+      "7": -3.74,
+      "8": -1.08,
+      "10": -2.41
+     },
+     "median": -2.15,
+     "status": "lost",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 5268,
+     "n_quantified": 5268,
+     "n_membrane": 702
+    }
+   ],
+   "originals": [
+    {
+     "name": "De Carvalho 2026 Nat Commun.xlsx",
+     "path": "downloads/original/DeCarvalho2026/De Carvalho 2026 Nat Commun.xlsx",
+     "bytes": 4313075
+    }
+   ],
+   "csv": "downloads/reanalysis/DeCarvalho2026.csv",
+   "n_rows": 17346,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Shin2026",
+   "short": "Shin 2026",
+   "journal": "Research Square (preprint)",
+   "year": 2026,
+   "title": "EMC-dependent membrane insertion of IER3IP1 sustains efficient ER-to-Golgi trafficking",
+   "doi": "10.21203/rs.3.rs-8560191/v1",
+   "coverage": "full table",
+   "species": "human",
+   "perturbation": "EMC5 knockout",
+   "system": "Flp-In T-REx 293 cells expressing ER-lumenal TurboID",
+   "replicates": "Three per condition",
+   "fraction": "Proteins labelled by an ER-lumenal biotin ligase (ER-TurboID), not total protein",
+   "reanalysis": "We use the authors’ log2 ratios and adjusted p-values. The six proteins at the ±9.97 floor were seen in one condition only and are shown as present or absent.",
+   "verdict": "partly",
+   "reproduction": "The headline claim is right, but the statistic behind it cannot be used: the −9.97 value for IER3IP1 is a floor shared by six proteins seen only in wild type.",
+   "caveats": [
+    "Labelling depends on access to the ER lumen as well as on abundance, so changes are not directly comparable with whole-cell datasets."
+   ],
+   "conditions": [
+    {
+     "name": "EMC5-KO (ER-TurboID)",
+     "perturbation": "EMC5 knockout",
+     "subunit": 5,
+     "target": -2.3,
+     "others": {
+      "1": -0.9,
+      "2": -1.91,
+      "3": -1.83,
+      "4": -1.89,
+      "6": -1.51,
+      "7": -1.02,
+      "8": -2.3,
+      "10": -1.3
+     },
+     "median": -1.67,
+     "status": "lost",
+     "basis": "median of 8 other subunits",
+     "n_proteins": 2884,
+     "n_quantified": 2878,
+     "n_membrane": 509
+    }
+   ],
+   "originals": [
+    {
+     "name": "0c290c56710a7b83560547eb.xlsx",
+     "path": "downloads/original/Shin2026/0c290c56710a7b83560547eb.xlsx",
+     "bytes": 297865
+    },
+    {
+     "name": "5bd7320aa0c7ac13cd071d5a.xlsx",
+     "path": "downloads/original/Shin2026/5bd7320aa0c7ac13cd071d5a.xlsx",
+     "bytes": 90974
+    },
+    {
+     "name": "04cf109402b866b2efd5bc0e.xlsx",
+     "path": "downloads/original/Shin2026/04cf109402b866b2efd5bc0e.xlsx",
+     "bytes": 13289
+    },
+    {
+     "name": "29a8bb284a84c63a22b006ff.docx",
+     "path": "downloads/original/Shin2026/29a8bb284a84c63a22b006ff.docx",
+     "bytes": 33458
+    }
+   ],
+   "csv": "downloads/reanalysis/Shin2026.csv",
+   "n_rows": 2884,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Dong2025",
+   "short": "Dong 2025",
+   "journal": "Oncogene",
+   "year": 2025,
+   "title": "EMC2 promotes triple negative breast cancer growth by protecting FDFT1 from endoplasmic reticulum associated degradation to impair ferroptosis susceptibility",
+   "doi": "10.1038/s41388-025-03545-3",
+   "coverage": "full table",
+   "species": "human",
+   "perturbation": "EMC2 knockdown by shRNA",
+   "system": "BT-20 triple-negative breast cancer cells",
+   "replicates": "One sample per condition (unreplicated)",
+   "fraction": "Whole-cell proteome, label-free",
+   "reanalysis": "log2 of shEMC2 over control abundance, median-centred over the 935 proteins seen in both samples. Proteins seen in one sample only are shown as present or absent, not imputed.",
+   "verdict": "holds",
+   "reproduction": "The main claim holds: FDFT1 is down 3.29 log2, as reported. TFRC is up (+0.95).",
+   "caveats": [
+    "Unreplicated, so single-protein values are noisy; some nuclear RNA-binding proteins fall more than 8-fold.",
+    "EMC2 itself and the other EMC subunits were not detected, so neither the knockdown nor the state of the complex can be checked from these data."
+   ],
+   "conditions": [
+    {
+     "name": "EMC2 shRNA",
+     "perturbation": "EMC2 knockdown",
+     "subunit": 2,
+     "target": null,
+     "others": {},
+     "median": null,
+     "status": "not measurable",
+     "basis": "none of the other subunits detected",
+     "n_proteins": 1568,
+     "n_quantified": 935,
+     "n_membrane": 147
+    }
+   ],
+   "originals": [
+    {
+     "name": "Dong et al. 2025, Oncogene.xlsx",
+     "path": "downloads/original/Dong2025/Dong et al. 2025, Oncogene.xlsx",
+     "bytes": 334648
+    },
+    {
+     "name": "Dong_2025_reanalysis.xlsx",
+     "path": "downloads/original/Dong2025/Dong_2025_reanalysis.xlsx",
+     "bytes": 78943
+    }
+   ],
+   "csv": "downloads/reanalysis/Dong2025.csv",
+   "n_rows": 1568,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Marquez2020",
+   "short": "Marquez 2020",
+   "journal": "J Clin Invest",
+   "year": 2020,
+   "title": "Disrupted ER membrane protein complex–mediated topogenesis drives congenital neural crest defects",
+   "doi": "10.1172/JCI129308",
+   "coverage": "full table",
+   "species": "X. tropicalis",
+   "perturbation": "emc1 knockdown by morpholino",
+   "system": "Xenopus tropicalis embryos",
+   "replicates": "Three morpholino and three control samples",
+   "fraction": "Whole-embryo proteome, label-free",
+   "reanalysis": "log2 of the mean normalised abundance, morpholino over control, with the authors’ ANOVA p and q values. Every accession in a protein group is matched; obsolete accessions were traced through UniProt and UniParc.",
+   "verdict": "not checked",
+   "reproduction": "Not yet checked against the paper’s claims.",
+   "caveats": [
+    "Only about half of the deposited accessions are still current in UniProt. 209 protein groups carry retired gene-model identifiers with no current entry and have no membrane call or orthologue.",
+    "emc1 itself was not detected; four other subunits were, with a median of −0.52 (complex intact by our rule)."
+   ],
+   "conditions": [
+    {
+     "name": "emc1 morpholino",
+     "perturbation": "emc1 knockdown",
+     "subunit": 1,
+     "target": null,
+     "others": {
+      "2": 0.28,
+      "5": -0.79,
+      "7": -1.0,
+      "8": -0.25
+     },
+     "median": -0.52,
+     "status": "intact",
+     "basis": "median of 4 other subunits",
+     "n_proteins": 2847,
+     "n_quantified": 2680,
+     "n_membrane": 278
+    }
+   ],
+   "originals": [
+    {
+     "name": "Marquez 2020 JCI.xlsx",
+     "path": "downloads/original/Marquez2020/Marquez 2020 JCI.xlsx",
+     "bytes": 1724016
+    }
+   ],
+   "csv": "downloads/reanalysis/Marquez2020.csv",
+   "n_rows": 2847,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Bai2020",
+   "short": "Bai 2020",
+   "journal": "Nature",
+   "year": 2020,
+   "title": "Structure of the ER membrane complex, a transmembrane-domain insertase",
+   "doi": "10.1038/s41586-020-2389-3",
+   "coverage": "full table",
+   "species": "yeast",
+   "perturbation": "emc3, emc4 and emc6 deletion strains",
+   "system": "Saccharomyces cerevisiae",
+   "replicates": "One TMT channel per strain (unreplicated)",
+   "fraction": "DDM extract of membranes, not whole cells",
+   "reanalysis": "Difference of the authors’ log2 median-normalised intensities, deletion minus wild type.",
+   "verdict": "not testable",
+   "reproduction": "A ranked list only, without replicates: 32, 58 and 81 proteins fall more than 2-fold in emc3Δ, emc4Δ and emc6Δ. The paper reports 38 membrane proteins as significantly reduced using its own pipeline.",
+   "caveats": [
+    "emc6Δ loses the complex (other subunits median −1.31); emc3Δ and emc4Δ do not by our rule, although Emc4 falls 2.13 log2 in emc3Δ."
+   ],
+   "conditions": [
+    {
+     "name": "emc3Δ",
+     "perturbation": "emc3 deletion",
+     "subunit": 3,
+     "target": null,
+     "others": {
+      "1": -0.55,
+      "2": -0.31,
+      "4": -2.13,
+      "5": 0.3,
+      "7": -0.55
+     },
+     "median": -0.55,
+     "status": "intact",
+     "basis": "median of 5 other subunits",
+     "n_proteins": 4216,
+     "n_quantified": 4079,
+     "n_membrane": 832
+    },
+    {
+     "name": "emc4Δ",
+     "perturbation": "emc4 deletion",
+     "subunit": 4,
+     "target": -2.82,
+     "others": {
+      "1": -0.32,
+      "2": -0.24,
+      "5": 0.41,
+      "7": -0.47
+     },
+     "median": -0.28,
+     "status": "intact",
+     "basis": "median of 4 other subunits",
+     "n_proteins": 4216,
+     "n_quantified": 4079,
+     "n_membrane": 832
+    },
+    {
+     "name": "emc6Δ",
+     "perturbation": "emc6 deletion",
+     "subunit": 6,
+     "target": null,
+     "others": {
+      "1": -0.73,
+      "2": -2.37,
+      "4": -2.75,
+      "5": -1.31,
+      "7": -0.74
+     },
+     "median": -1.31,
+     "status": "lost",
+     "basis": "median of 5 other subunits",
+     "n_proteins": 4216,
+     "n_quantified": 4079,
+     "n_membrane": 832
+    }
+   ],
+   "originals": [
+    {
+     "name": "Bai 2020 Nature_MOESM3_ESM.xlsx",
+     "path": "downloads/original/Bai2020/Bai 2020 Nature_MOESM3_ESM.xlsx",
+     "bytes": 11399
+    },
+    {
+     "name": "Bai 2020 Nature_MOESM4_ESM.xlsx",
+     "path": "downloads/original/Bai2020/Bai 2020 Nature_MOESM4_ESM.xlsx",
+     "bytes": 1369805
+    }
+   ],
+   "csv": "downloads/reanalysis/Bai2020.csv",
+   "n_rows": 12648,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Iyer2022",
+   "short": "Iyer 2022",
+   "journal": "PLoS Pathog",
+   "year": 2022,
+   "title": "The endoplasmic reticulum membrane protein complex localizes to the mitochondrial-endoplasmic reticulum interface and its subunits modulate phospholipid biosynthesis in Trypanosoma brucei",
+   "doi": "10.1371/journal.ppat.1009717",
+   "coverage": "full table",
+   "species": "T. brucei",
+   "perturbation": "TbEMC3 and TbEMC8 knockdown by RNAi, harvested at 3 and 3.5 days",
+   "system": "Trypanosoma brucei procyclic forms",
+   "replicates": "Three SILAC replicates (label swap) per condition",
+   "fraction": "Whole-cell proteome, SILAC",
+   "reanalysis": "Mean log2 ratio (induced over uninduced) and p-value as given by the authors.",
+   "verdict": "holds",
+   "reproduction": "Holds: the Kennedy-pathway enzymes are unchanged, as the paper states. Few proteins change (2 to 12 per condition at 1.5-fold and p < 0.05).",
+   "caveats": [
+    "TbEMC3 RNAi lowers only TbEMC3; TbEMC8 RNAi also lowers TbEMC3 (−2.44) and TbEMC2 (−1.65) while the other subunits stay flat. The median rule calls the complex intact in both, so read the subunit strip.",
+    "Fig. 1 of the paper labels TbEMC8 as Tb927.7.1570; the RNAi target in the methods and data is Tb927.8.1570.",
+    "Human orthologues for T. brucei include family-level matches; each is marked."
+   ],
+   "conditions": [
+    {
+     "name": "TbEMC3 RNAi 3 d",
+     "perturbation": "TbEMC3 RNAi",
+     "subunit": 3,
+     "target": -2.35,
+     "others": {
+      "1": -0.26,
+      "2": -0.28,
+      "4": -0.85,
+      "8": -0.07,
+      "10": -0.29
+     },
+     "median": -0.28,
+     "status": "intact",
+     "basis": "median of 5 other subunits",
+     "n_proteins": 3064,
+     "n_quantified": 3064,
+     "n_membrane": 218
+    },
+    {
+     "name": "TbEMC3 RNAi 3.5 d",
+     "perturbation": "TbEMC3 RNAi",
+     "subunit": 3,
+     "target": -2.37,
+     "others": {
+      "1": 0.08,
+      "2": -0.21,
+      "4": -0.14,
+      "8": 0.02,
+      "10": -0.05
+     },
+     "median": -0.05,
+     "status": "intact",
+     "basis": "median of 5 other subunits",
+     "n_proteins": 3063,
+     "n_quantified": 3063,
+     "n_membrane": 216
+    },
+    {
+     "name": "TbEMC8 RNAi 3 d",
+     "perturbation": "TbEMC8 RNAi",
+     "subunit": 8,
+     "target": -2.66,
+     "others": {
+      "1": -0.36,
+      "3": -2.44,
+      "4": -0.17,
+      "10": -0.13
+     },
+     "median": -0.27,
+     "status": "intact",
+     "basis": "median of 4 other subunits",
+     "n_proteins": 2650,
+     "n_quantified": 2650,
+     "n_membrane": 197
+    },
+    {
+     "name": "TbEMC8 RNAi 3.5 d",
+     "perturbation": "TbEMC8 RNAi",
+     "subunit": 8,
+     "target": -2.31,
+     "others": {
+      "1": -0.19,
+      "2": -1.65,
+      "4": -0.81,
+      "10": -0.1
+     },
+     "median": -0.5,
+     "status": "intact",
+     "basis": "median of 4 other subunits",
+     "n_proteins": 2589,
+     "n_quantified": 2589,
+     "n_membrane": 174
+    }
+   ],
+   "originals": [
+    {
+     "name": "Iyer et al. 2022, PLoS Pathogens.xlsx",
+     "path": "downloads/original/Iyer2022/Iyer et al. 2022, PLoS Pathogens.xlsx",
+     "bytes": 4251106
+    },
+    {
+     "name": "Iyer_2022_reanalysis.xlsx",
+     "path": "downloads/original/Iyer2022/Iyer_2022_reanalysis.xlsx",
+     "bytes": 511464
+    }
+   ],
+   "csv": "downloads/reanalysis/Iyer2022.csv",
+   "n_rows": 11366,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Tang2017",
+   "short": "Tang 2017",
+   "journal": "J Clin Invest",
+   "year": 2017,
+   "title": "EMC3 coordinates surfactant protein and lipid homeostasis required for respiration",
+   "doi": "10.1172/JCI94152",
+   "coverage": "called hits",
+   "species": "mouse",
+   "perturbation": "Emc3 conditional knockout in lung epithelium",
+   "system": "EpCAM+ alveolar type 2 cells sorted from E18.5 fetal lungs",
+   "replicates": "Four per condition",
+   "fraction": "Sorted-cell proteome",
+   "reanalysis": "Table S2B transcribed from the image in the supplement (78 proteins). Printed values are linear fold change (−5.21 means 5.21-fold lower) and are converted to log2; the printed value is kept alongside.",
+   "verdict": "not testable",
+   "reproduction": "Only selected proteins are published, so the claims cannot be tested.",
+   "caveats": [
+    "Proteins not in the table are unknown, not unchanged.",
+    "NAPSA is listed at p = 0.065.",
+    "The deposited MassIVE dataset (MSV000080389) holds no quantification.",
+    "The file offered here is page 9 of the supplement (Table S2); the full supplement is available from the journal."
+   ],
+   "conditions": [
+    {
+     "name": "Emc3 cKO lung AT2 (E18.5)",
+     "perturbation": "Emc3 conditional knockout",
+     "subunit": 3,
+     "target": null,
+     "others": {},
+     "median": null,
+     "status": "lost",
+     "basis": "inferred from the subunit perturbed; subunits not reported",
+     "n_proteins": 78,
+     "n_quantified": 71,
+     "n_membrane": 17
+    }
+   ],
+   "originals": [
+    {
+     "name": "Tang 2017 JCI_sup_page9_TableS2.pdf",
+     "path": "downloads/original/Tang2017/Tang 2017 JCI_sup_page9_TableS2.pdf",
+     "bytes": 596413
+    }
+   ],
+   "csv": "downloads/reanalysis/Tang2017.csv",
+   "n_rows": 78,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Zhang2025",
+   "short": "Zhang 2025",
+   "journal": "Oncogene",
+   "year": 2025,
+   "title": "Unveiling EMC6 as a novel pathogenic determinant in hepatocellular carcinoma",
+   "doi": "10.1038/s41388-025-03649-w",
+   "coverage": "called hits",
+   "species": "mouse",
+   "perturbation": "Emc6 hepatocyte-specific knockout",
+   "system": "Mouse liver",
+   "replicates": "As described by the authors (TMT)",
+   "fraction": "Whole-liver proteome",
+   "reanalysis": "The top 10 up and top 10 down proteins of Table S3 with their log2 fold change and p-value. The other proteins in the authors’ identified list are marked as detected, with no value reported.",
+   "verdict": "not testable",
+   "reproduction": "Only the top 20 are published with values, so the claims cannot be tested.",
+   "caveats": [
+    "Emc1, Emc3 and Emc10 appear among the top 20, all down (median −1.71), so the complex is called lost from a filtered list."
+   ],
+   "conditions": [
+    {
+     "name": "Emc6 hepatocyte KO liver",
+     "perturbation": "Emc6 hepatocyte knockout",
+     "subunit": 6,
+     "target": null,
+     "others": {
+      "1": -1.71,
+      "3": -1.92,
+      "10": -1.58
+     },
+     "median": -1.71,
+     "status": "lost",
+     "basis": "median of 3 other subunits, from a filtered list",
+     "n_proteins": 5945,
+     "n_quantified": 20,
+     "n_membrane": 923
+    }
+   ],
+   "originals": [
+    {
+     "name": "Zhang 2025 Oncogene_TableS3_top20proteins.docx",
+     "path": "downloads/original/Zhang2025/Zhang 2025 Oncogene_TableS3_top20proteins.docx",
+     "bytes": 18568
+    },
+    {
+     "name": "Zhang 2025 Oncogene_Proteins_Summary.xlsx",
+     "path": "downloads/original/Zhang2025/Zhang 2025 Oncogene_Proteins_Summary.xlsx",
+     "bytes": 1675019
+    },
+    {
+     "name": "Zhang 2025 Oncogene_Peptides_Summary.xlsx",
+     "path": "downloads/original/Zhang2025/Zhang 2025 Oncogene_Peptides_Summary.xlsx",
+     "bytes": 7149039
+    }
+   ],
+   "csv": "downloads/reanalysis/Zhang2025.csv",
+   "n_rows": 5945,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Penrod2024",
+   "short": "Penrod 2024",
+   "journal": "Am J Physiol Gastrointest Liver Physiol",
+   "year": 2024,
+   "title": "EMC3 is critical for CFTR function and calcium mobilization in the mouse intestinal epithelium",
+   "doi": "10.1152/ajpgi.00066.2024",
+   "coverage": "called hits",
+   "species": "mouse",
+   "perturbation": "Emc3 knockout in intestinal epithelium (Villin-Cre)",
+   "system": "Isolated mouse intestinal crypts",
+   "replicates": "Four knockout and four control mice",
+   "fraction": "Crypt-cell proteome, TMT",
+   "reanalysis": "Fig. 5A (the 20 most decreased membrane proteins) and Fig. 4A (EMC subunits) are plots with significance stars and no printed values, so each protein is recorded as down with its significance level.",
+   "verdict": "not testable",
+   "reproduction": "Only plotted selections are published, so the claims cannot be tested.",
+   "caveats": [
+    "Fkbp11 is shown at p = 0.0527.",
+    "Fig. 4A shows all eight other EMC subunits significantly lower."
+   ],
+   "conditions": [
+    {
+     "name": "Emc3 intestinal epithelium KO crypts",
+     "perturbation": "Emc3 knockout in intestinal epithelium (Villin-Cre)",
+     "subunit": 3,
+     "target": null,
+     "others": {},
+     "median": null,
+     "status": "lost",
+     "basis": "inferred; Fig. 4A shows all eight other subunits significantly lower, values not printed",
+     "n_proteins": 28,
+     "n_quantified": 0,
+     "n_membrane": 21
+    }
+   ],
+   "originals": [],
+   "csv": "downloads/reanalysis/Penrod2024.csv",
+   "n_rows": 28,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Sun2024",
+   "short": "Sun 2024",
+   "journal": "Genes Dis",
+   "year": 2024,
+   "title": "The endoplasmic reticulum membrane protein complex subunit Emc6 is essential for rhodopsin localization and photoreceptor cell survival",
+   "doi": "10.1016/j.gendis.2023.03.033",
+   "coverage": "named proteins",
+   "species": "mouse",
+   "perturbation": "Emc6 knockout in rod photoreceptors",
+   "system": "Mouse retina, 4 weeks",
+   "replicates": "Three per condition",
+   "fraction": "Whole-retina proteome",
+   "reanalysis": "The eight proteins named in Fig. 6B, all down (called at 1.2-fold and p < 0.05). No values are given in the paper or supplement.",
+   "verdict": "not testable",
+   "reproduction": "The paper reports 49 proteins down and 46 up; only these eight are named.",
+   "caveats": [
+    "The full list is available only from the authors."
+   ],
+   "conditions": [
+    {
+     "name": "Emc6 rod KO retina",
+     "perturbation": "Emc6 rod-specific knockout",
+     "subunit": 6,
+     "target": null,
+     "others": {},
+     "median": null,
+     "status": "lost",
+     "basis": "inferred from the subunit perturbed; subunits not reported",
+     "n_proteins": 8,
+     "n_quantified": 0,
+     "n_membrane": 4
+    }
+   ],
+   "originals": [],
+   "csv": "downloads/reanalysis/Sun2024.csv",
+   "n_rows": 8,
+   "checked": "18 Nov 2026"
+  },
+  {
+   "id": "Liu2022",
+   "short": "Liu 2022",
+   "journal": "Int J Mol Sci",
+   "year": 2022,
+   "title": "Membrane-bound EMC10 is required for sperm motility via maintaining the homeostasis of cytoplasm sodium in sperm",
+   "doi": "10.3390/ijms231710069",
+   "coverage": "named proteins",
+   "species": "mouse",
+   "perturbation": "Emc10 knockout",
+   "system": "Mouse spermatozoa",
+   "replicates": "Not stated in a usable form",
+   "fraction": "Sperm proteome",
+   "reanalysis": "ATP1A4 and ATP1B3, reported as nearly absent in the text.",
+   "verdict": "not testable",
+   "reproduction": "No data are available.",
+   "caveats": [
+    "EMC10 is peripheral; the complex is inferred to be intact."
+   ],
+   "conditions": [
+    {
+     "name": "Emc10 KO sperm",
+     "perturbation": "Emc10 knockout",
+     "subunit": 10,
+     "target": null,
+     "others": {},
+     "median": null,
+     "status": "intact",
+     "basis": "inferred from the subunit perturbed; subunits not reported",
+     "n_proteins": 2,
+     "n_quantified": 0,
+     "n_membrane": 2
+    }
+   ],
+   "originals": [],
+   "csv": "downloads/reanalysis/Liu2022.csv",
+   "n_rows": 2,
+   "checked": "18 Nov 2026"
+  }
+ ],
+ "unavailable": [
+  {
+   "paper": "Chen 2025, Transl Oncol",
+   "doi": "10.1016/j.tranon.2024.102251",
+   "what": "EMC2 knockdown, 5-8F nasopharyngeal carcinoma cells, TMT",
+   "status": "iProX PXD043572 and PXD043549 are reserved and have not been released; the reviewer links printed in the paper no longer work, and an iProX search returns nothing."
+  },
+  {
+   "paper": "Cao 2021, IOVS",
+   "doi": "",
+   "pmid": "33605987",
+   "what": "Emc3 conditional knockout, retina",
+   "status": "iProX PXD023349 is registered, but its files return errors 404 and 403."
+  },
+  {
+   "paper": "Volkmar 2019, cell-surface fraction",
+   "doi": "10.1242/jcs.223453",
+   "what": "EMC5 and EMC6 knockout U2OS, surface-biotinylated proteins",
+   "status": "Not deposited. The intracellular fraction is included in this atlas."
+  },
+  {
+   "paper": "Tang 2017, full proteome",
+   "doi": "10.1172/JCI94152",
+   "what": "Emc3 conditional knockout, fetal lung AT2 cells",
+   "status": "MassIVE MSV000080389 holds no quantification; the selected proteins of Table S2B are included in this atlas."
+  }
+ ],
+ "excluded": [
+  [
+   "Interaction studies of the EMC itself",
+   "Klose 2025; Stanton 2026 co-immunoprecipitations; Shurtleff 2018 yeast immunoprecipitations; EMC:Spf1, NSMB 2026 (Emc5-FLAG IP); EMC3 mesenchymal co-IP, iScience 2023"
+  ],
+  [
+   "Other designs",
+   "Rollins 2026; Pleiner 2021; Tang 2024 JCI (rescue design); Miller-Vedam 2020 (no proteome)"
+  ],
+  [
+   "Not a perturbation proteome",
+   "Jung and Zimmermann 2023 (meta-analysis); EMC10 metabolic literature; EMC6 in a pancreatitis proteome (EMC6 found, not perturbed)"
+  ]
+ ],
+ "checked": "18 Nov 2026"
+}

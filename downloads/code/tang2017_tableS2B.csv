@@ -1,0 +1,79 @@
+gene,subtable,p_value,fold_change_as_printed
+SOAT1,Lipid enzymes,0.0009,-5.21
+MCCC1,Lipid enzymes,0.0019,-2.31
+GALC,Lipid enzymes,0.0071,-2.11
+GDE1,Lipid enzymes,0.0002,-2.02
+CES1D,Lipid enzymes,0.0008,-1.95
+PCCA,Lipid enzymes,0.0018,-1.82
+CAT,Lipid enzymes,0.0003,-1.81
+IVD,Lipid enzymes,0.0011,-1.64
+MCCC2,Lipid enzymes,0.0012,-1.58
+PCCB,Lipid enzymes,0.0068,-1.56
+NAGA,Lipid enzymes,0.0194,-1.48
+PIGU,Lipid enzymes,0.0077,-1.46
+NSDHL,Lipid enzymes,0.0486,-1.41
+ACLY,Lipid enzymes,0.0013,-1.38
+HMGCS1,Lipid enzymes,0.0248,-1.38
+ECI2,Lipid enzymes,0.0081,-1.38
+ASAH1,Lipid enzymes,0.0010,-1.37
+ACAA2,Lipid enzymes,0.0029,-1.36
+ACSL1,Lipid enzymes,0.0360,-1.34
+HACD3,Lipid enzymes,0.0107,-1.33
+MUT,Lipid enzymes,0.0014,-1.33
+ADH5,Lipid enzymes,0.0171,-1.32
+ACOT2,Lipid enzymes,0.0018,-1.31
+ECHS1,Lipid enzymes,0.0104,-1.31
+ACAT2,Lipid enzymes,0.0340,-1.30
+ECI1,Lipid enzymes,0.0083,-1.30
+GPX1,Lipid enzymes,0.0097,-1.28
+ACSL5,Lipid enzymes,0.0019,-1.26
+ACAT1,Lipid enzymes,0.0046,-1.25
+PRDX6,Lipid enzymes,0.0082,-1.24
+GCDH,Lipid enzymes,0.0165,-1.23
+ACACA,Lipid enzymes,0.0471,-1.22
+ATG7,Lipid enzymes,0.0483,-1.22
+CPT2,Lipid enzymes,0.0033,-1.20
+ANXA1,Lipid enzymes,0.0019,1.43
+GDPD2,Lipid enzymes,0.0000,Absent
+SCD1,Lipid enzymes,0.0451,Absent
+MCEE,Lipid enzymes,0.0000,Absent
+GOLM1,Other lipid proteins,0.0237,-2.90
+FABP5,Other lipid proteins,0.0024,-2.62
+NPC2,Other lipid proteins,0.0136,-2.60
+SCPEP1,Other lipid proteins,0.0001,-2.05
+ABCA3,Other lipid proteins,0.0004,-2.03
+SFTPB,Other lipid proteins,0.0011,-2.02
+ATP1A1,Other lipid proteins,0.0000,-1.92
+ABCD3,Other lipid proteins,0.0016,-1.77
+SCP2,Other lipid proteins,0.0019,-1.68
+SORL1,Other lipid proteins,0.0075,-1.68
+ERLIN1,Other lipid proteins,0.0031,-1.58
+PC,Other lipid proteins,0.0029,-1.39
+STOML2,Other lipid proteins,0.0377,-1.26
+PON1,Other lipid proteins,0.0494,Absent
+SLC44A1,Other lipid proteins,0.0000,Absent
+AGK,Other lipid proteins,0.0000,Absent
+EIF6,Other lipid proteins,0.0411,1.24
+LAMTOR1,Other lipid proteins,0.0024,1.26
+AKT1,Other lipid proteins,0.0130,1.34
+PSAP,Other lipid proteins,0.0108,1.73
+C3,Other lipid proteins,0.0373,1.90
+ASNA1,UPR proteins,0.0060,-1.65
+ATP6V0D1,UPR proteins,0.0478,-1.59
+SEC61A1,UPR proteins,0.0044,-1.36
+UBA5,UPR proteins,0.0393,1.21
+SEC31A,UPR proteins,0.0082,1.21
+GFPT1,UPR proteins,0.0075,1.23
+FAM129A,UPR proteins,0.0018,1.26
+LMNA,UPR proteins,0.0065,1.27
+TMEM33,UPR proteins,0.0271,1.33
+PDIA5,UPR proteins,0.0162,1.33
+ERP44,UPR proteins,0.0369,1.38
+MANF,UPR proteins,0.0042,1.43
+GOSR2,UPR proteins,0.0380,2.48
+THBS1,UPR proteins,0.0423,Induced in KO only
+CTSZ,Cathepsins,0.0012,-3.71
+CTSC,Cathepsins,0.0004,-3.00
+CTSB,Cathepsins,0.0039,-1.88
+CTSH,Cathepsins,0.0036,-1.58
+NAPSA,Cathepsins,0.0650,-1.28

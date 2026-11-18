@@ -1,0 +1,3 @@
+dataset,condition,species,protein_id,gene,log2fc,p,padj,p_source,value_type,presence,n_ko,n_ctrl,membrane,membrane_basis,human_accession,human_gene,ortho_support,ortho_evidence,ortho_n_human,human_match_by,coverage,source_value,emc_subunit
+Liu2022,Emc10 KO sperm,mouse,,Atp1a4,,,,none (no data available),named,down (reported nearly absent),,,True,orthologue of human membrane list,Q13733,ATP1A4,"3 of 3 (Ensembl, MGI, PANTHER)",pair call,1,,named proteins,,
+Liu2022,Emc10 KO sperm,mouse,,Atp1b3,,,,none (no data available),named,down (reported nearly absent),,,True,orthologue of human membrane list,P54709,ATP1B3,"3 of 3 (Ensembl, MGI, PANTHER)",pair call,1,,named proteins,,

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMC perturbation proteomics: datasets</title>
+<meta name="description" content="Every published EMC knockout and knockdown proteome, re-analysed on common terms, with a membrane-protein filter and cross-species orthologues.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<main><div class="wrap">
+  <section style="display:flex;flex-direction:column;gap:10px">
+    <h1>Datasets</h1>
+    <p class="lead">Every published proteome in which a subunit of the ER membrane protein complex (EMC) was knocked out or knocked down, collected in one place and re-analysed on common terms. Each value can be traced to its source file and the rule applied to it, membrane proteins can be shown on their own, and proteins from mouse, frog, yeast and trypanosome datasets are linked to their human orthologues where one exists.</p>
+    <p class="small" id="sweep"></p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
+      <a class="btn primary" href="downloads/emc_long.csv" download>Download all re-analysed values (CSV)</a>
+      <a class="btn" href="downloads/conditions.csv" download>Conditions and EMC complex status (CSV)</a>
+      <a class="btn" href="access.html#originals">Original files</a>
+    </div>
+  </section>
+
+  <div class="chips" role="group" aria-label="Filter by coverage" id="filters"></div>
+
+  <section class="card">
+    <div class="tbox"><table class="t" style="min-width:1080px">
+      <thead><tr><th>Dataset</th><th>Perturbation</th><th>EMC complex</th><th>System</th><th>Coverage</th><th>Reproduces?</th><th>Download</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="7" class="loading">Loading…</td></tr></tbody>
+    </table></div>
+    <div class="card-foot">EMC complex: median log2 change of the subunits not perturbed. Lost at 2-fold down or more, reduced at 1.5- to 2-fold, intact otherwise. Squares are EMC1 to EMC10, shaded by log2 change from dark blue (down) to orange (up); the ringed square is the subunit perturbed; dashed means not detected. Hover a square for its value. Where a paper reports no subunits, the status is inferred from the subunit perturbed and marked as such.</div>
+  </section>
+
+  <section class="card pad" style="display:flex;flex-direction:column;gap:10px">
+    <h2>What coverage means</h2>
+    <ul class="plain">
+      <li><b>Full table:</b> every quantified protein is published, so a protein that is absent was not detected, and a protein that is present but unchanged was measured and unchanged.</li>
+      <li><b>Called hits:</b> only a selection is published (for example a top-20 list). A protein missing from the list is unknown, not unchanged.</li>
+      <li><b>Named proteins:</b> the paper names proteins and their direction in the text or a figure, without values.</li>
+    </ul>
+    <p class="small">Datasets that are described but cannot be obtained are listed under <a href="access.html">Data access</a>.</p>
+  </section>
+</div></main>
+<script src="assets/common.js"></script>
+<script>
+EMC.header('index.html');
+(async () => {
+  const D = await EMC.getJSON('data/datasets.json');
+  const ds = D.datasets;
+  document.getElementById('sweep').textContent = `${ds.length} datasets. Last checked ${D.checked}; the search behind this list is described under Methods.`;
+  let filt = 'all';
+  const counts = { all: ds.length };
+  ds.forEach(d => counts[d.coverage] = (counts[d.coverage] || 0) + 1);
+  const opts = [['all', 'All'], ['full table', 'Full tables'], ['called hits', 'Called hits'], ['named proteins', 'Named proteins']];
+  const F = document.getElementById('filters');
+  const drawF = () => F.innerHTML = opts.map(([k, l]) => `<button data-k="${k}" class="${filt === k ? 'on' : ''}">${l} (${counts[k] || 0})</button>`).join('');
+  F.addEventListener('click', e => { const k = e.target.closest('button')?.dataset.k; if (k) { filt = k; drawF(); draw(); } });
+  const draw = () => {
+    document.getElementById('rows').innerHTML = ds.filter(d => filt === 'all' || d.coverage === filt).map(d => {
+      const v = EMC.VERDICT[d.verdict] || [d.verdict, ''];
+      const cx = d.conditions.map(c => `<div style="display:flex;flex-direction:column;gap:4px;margin-bottom:8px">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">${EMC.badge(c)}<span class="tiny">${EMC.esc(c.name)}${c.median !== null && !c.basis.startsWith('inferred') ? ' · ' + EMC.fc(c.median) : ''}${c.basis.startsWith('one other') ? ' · 1 subunit' : ''}${c.basis.includes('filtered') ? ' · from a filtered list' : ''}</span></div>
+          ${EMC.strip(c, d.species, false)}</div>`).join('');
+      const dl = d.coverage === 'named proteins' && !d.originals.length ? `<a href="${d.csv}" download>Values</a>` :
+        `<a href="${d.csv}" download>Re-analysis</a>${d.originals.length ? ` · <a href="dataset.html?id=${d.id}#downloads">Original</a>` : ''}`;
+      return `<tr>
+        <td><a href="dataset.html?id=${d.id}" style="font-weight:600">${EMC.esc(d.short)}</a><div class="tiny">${EMC.esc(d.journal)}</div></td>
+        <td>${EMC.esc(d.perturbation)}</td>
+        <td style="min-width:260px">${cx}</td>
+        <td>${EMC.esc(d.system)}</td>
+        <td>${EMC.COVERAGE[d.coverage]}</td>
+        <td><span class="pill ${v[1]}">${v[0]}</span></td>
+        <td class="small" style="white-space:nowrap">${dl}</td></tr>`;
+    }).join('');
+  };
+  drawF(); draw();
+})().catch(e => { document.getElementById('rows').innerHTML = `<tr><td colspan="7" class="loading">Could not load the data (${EMC.esc(e.message)}). If you opened this file directly, serve the folder instead (see README).</td></tr>`; });
+</script>
+</body>
+</html>

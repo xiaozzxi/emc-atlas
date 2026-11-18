@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMC perturbation proteomics: data access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<main><div class="wrap">
+  <section style="display:flex;flex-direction:column;gap:10px">
+    <h1>Data access</h1>
+    <p class="lead">Where each dataset comes from, what can be downloaded here, and which described datasets could not be obtained.</p>
+  </section>
+  <section class="card pad" style="display:flex;flex-direction:column;gap:12px">
+    <h2>Described but not available</h2>
+    <p class="small" id="checked"></p>
+    <div class="grid2" id="unavail"></div>
+  </section>
+  <section class="card" id="originals">
+    <div class="card-head"><h2>Original files and our values</h2><a class="btn" href="downloads/emc_long.csv" download>All re-analysed values (CSV)</a></div>
+    <div class="tbox"><table class="t" style="min-width:820px"><thead><tr><th>Dataset</th><th>Paper</th><th>Our values</th><th>Original files as published</th></tr></thead><tbody id="orig"></tbody></table></div>
+    <div class="card-foot">Original files are the supplementary tables and deposited search outputs, copied unchanged; they remain under their publishers’ terms. Papers themselves are linked, not copied. Where a paper gives values only in a figure or in the text, there is no original file and our values were transcribed (see the dataset page).</div>
+  </section>
+  <section class="card pad" style="display:flex;flex-direction:column;gap:10px">
+    <h2>Studies not included, and why</h2>
+    <ul class="plain" id="excl"></ul>
+  </section>
+</div></main>
+<script src="assets/common.js"></script>
+<script>
+EMC.header('access.html');
+(async () => {
+  const D = await EMC.getJSON('data/datasets.json'), e = EMC.esc;
+  document.getElementById('checked').textContent = `Status as checked on ${D.checked}.`;
+  document.getElementById('unavail').innerHTML = D.unavailable.map(u => `<div style="border:1px solid #eceef1;border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:4px">
+    <b style="font-size:14px">${e(u.paper)}</b><span class="small">${e(u.what)}</span><span style="font-size:14px;line-height:1.5">${e(u.status)}</span>
+    ${u.doi ? `<a class="small" href="https://doi.org/${e(u.doi)}">doi:${e(u.doi)}</a>` : u.pmid ? `<a class="small" href="https://pubmed.ncbi.nlm.nih.gov/${e(u.pmid)}/">PubMed ${e(u.pmid)}</a>` : ''}</div>`).join('');
+  const kb = n => n === null ? '' : n > 1e6 ? ` (${(n / 1e6).toFixed(1)} MB)` : ` (${Math.max(1, Math.round(n / 1e3))} kB)`;
+  document.getElementById('orig').innerHTML = D.datasets.map(d => `<tr>
+    <td><a href="dataset.html?id=${d.id}" style="font-weight:500">${e(d.short)}</a><div class="tiny">${EMC.COVERAGE[d.coverage]}</div></td>
+    <td class="small"><a href="https://doi.org/${e(d.doi)}">doi:${e(d.doi)}</a></td>
+    <td class="small"><a href="${d.csv}" download>${d.id}.csv</a></td>
+    <td class="small">${d.originals.length ? d.originals.map(f => `<a href="${encodeURI(f.path)}" download>${e(f.name)}</a>${kb(f.bytes)}`).join('<br>') : 'None: values come from a figure or the text'}</td></tr>`).join('');
+  document.getElementById('excl').innerHTML = D.excluded.map(([k, v]) => `<li><b>${e(k)}:</b> ${e(v)}</li>`).join('');
+})();
+</script>
+</body>
+</html>

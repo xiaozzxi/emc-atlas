@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMC perturbation proteomics: methods</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:,">
+<style>.prose{max-width:860px;display:flex;flex-direction:column;gap:12px}.prose p,.prose li{font-size:15px;line-height:1.65}</style>
+</head>
+<body>
+<main><div class="wrap">
+  <section class="prose">
+    <h1>Methods</h1>
+    <p class="lead">How the datasets were found, how each value was derived, and the rules behind the membrane, orthology and EMC complex calls. Every rule here is applied by the scripts in <a href="downloads/code/">downloads/code</a>, which rebuild the whole table from the original files (listed under <a href="#code">Downloads and code</a>).</p>
+  </section>
+
+  <section class="card pad prose">
+    <h2>Which datasets are included</h2>
+    <p>Only experiments in which an EMC subunit was knocked out or knocked down and the proteome was then measured. Studies of what the EMC binds (co-immunoprecipitation, proximity labelling of the EMC itself) and ribosome profiling are not included.</p>
+    <p>Datasets were found on 18 Nov 2026 by collecting all 258 papers that cite Shurtleff 2018, Tian 2019 or Volkmar 2019 in Europe PMC, searching their full text for proteomics, perturbation and EMC terms, and running the same search across the rest of Europe PMC to catch papers that cite none of the three. Full-text searching covers open-access papers only; others were screened on title and abstract.</p>
+  </section>
+
+  <section class="card pad prose">
+    <h2>Values</h2>
+    <p>Every value is the log2 change of the perturbed sample over its control. Where the authors give a ratio and a p-value, we use theirs; where they do not, the dataset page says what we calculated and how. Proteins seen in one condition only, or given a floor value instead of a ratio, are shown as present or absent rather than as a number, and nothing is imputed. Values printed as linear fold change (Tang 2017) are converted to log2, and the printed value is kept beside them.</p>
+    <p>The volcano plots draw reference lines at 1.5-fold and p &lt; 0.05 for comparison across datasets; these are not necessarily the rule each paper used.</p>
+  </section>
+
+  <section class="card pad prose">
+    <h2>Membrane proteins</h2>
+    <p>A protein counts as a membrane protein if it has at least one helical transmembrane segment. Proteins with only a signal peptide, GPI-anchored proteins and beta-barrel proteins (such as VDAC1, VDAC2, TOMM40 and SAMM50) are excluded.</p>
+    <ul class="plain">
+      <li><b>Human:</b> a curated list of 4,863 human membrane proteins, matched by UniProt accession first and gene name second.</li>
+      <li><b>Mouse:</b> the orthologue of a protein on the human list. De Carvalho 2026 also annotate single- and multi-pass proteins themselves; the dataset page shows which source supports each call.</li>
+      <li><b>Yeast, Xenopus tropicalis, Trypanosoma brucei:</b> UniProt topology for that species. For yeast, UniProt’s curated single- or multi-pass statement agrees with the transmembrane segments for 1,488 of 1,496 proteins. Xenopus and T. brucei entries are mostly predictions.</li>
+    </ul>
+  </section>
+
+  <section class="card pad prose">
+    <h2>Orthologues</h2>
+    <p>Each link between a protein from another species and a human membrane protein is supported by at least two independent sources, where possible, and the page shows which sources agree.</p>
+    <ul class="plain">
+      <li><b>Mouse:</b> Ensembl, MGI (Alliance) and PANTHER 19. Pairs called by at least two sources are used; a single-source pair is used only when no pair for that human protein reaches two, and is marked.</li>
+      <li><b>Yeast:</b> Ensembl, PANTHER, OrthoDB and eggNOG. Curated EMC pairs: MMGT1 to EMC5, EMC10 to YDR056C, EMC7 to SOP4.</li>
+      <li><b>Xenopus tropicalis:</b> Ensembl, PANTHER, Xenbase, OrthoDB and eggNOG. At this distance OrthoDB and eggNOG groups hold whole families, so they count only alongside a pair call.</li>
+      <li><b>T. brucei:</b> PANTHER, OrthoDB and eggNOG, plus TbEMC5 (Tb927.4.2320) and TbEMC10 (Tb927.1.860) from Iyer 2022.</li>
+    </ul>
+    <p>A <b>pair call</b> comes from a gene-tree or curated orthology source. A <b>family-level</b> match rests only on a shared OrthoDB or eggNOG group, so it marks homology within a family rather than one-to-one orthology. Only proteins on the human membrane list have orthologues mapped; other proteins from non-human datasets can be found under their own names.</p>
+  </section>
+
+  <section class="card pad prose">
+    <h2>EMC complex status</h2>
+    <p>For each condition we take the change of every EMC subunit other than the one perturbed and use their median. The complex is called <b>lost</b> at 2-fold lower or more (median at or below −1), <b>reduced</b> at 1.5- to 2-fold lower (−1 to −0.585) and <b>intact</b> otherwise. The subunit values are always shown next to the label, because a median can hide a subunit-specific pattern; in T. brucei, for example, TbEMC8 knockdown lowers TbEMC3 and TbEMC2 while the other subunits stay flat. Where a paper reports no subunits, the status is inferred from the subunit perturbed (loss of EMC3, EMC5 or EMC6, and in practice EMC2, destabilises the complex; loss of EMC4, EMC8, EMC9 or EMC10 does not) and is marked as inferred.</p>
+  </section>
+
+  <section class="card pad prose" id="code">
+    <h2>Downloads and code</h2>
+    <ul class="plain">
+      <li><a href="downloads/emc_long.csv">emc_long.csv</a>: every value, one row per protein per dataset per condition, with its source and rules (<a href="downloads/README.md">column guide</a>).</li>
+      <li><a href="downloads/conditions.csv">conditions.csv</a>: one row per condition, with EMC subunit values and complex status.</li>
+      <li><a href="downloads/code/build.py">build.py</a> builds the table from the original files; <a href="downloads/code/export_site.py">export_site.py</a> writes the site’s data; <a href="downloads/code/datasets_meta.py">datasets_meta.py</a> holds the text of each dataset page.</li>
+      <li><a href="downloads/code/tang2017_tableS2B.csv">tang2017_tableS2B.csv</a>: Tang 2017 Table S2B, transcribed from the image in the supplement.</li>
+      <li><a href="downloads/code/marquez_uniparc_lookup.py">marquez_uniparc_lookup.py</a> and its output trace obsolete Marquez 2020 accessions through UniProt and UniParc.</li>
+    </ul>
+  </section>
+</div></main>
+<script src="assets/common.js"></script>
+<script>EMC.header('methods.html');</script>
+</body>
+</html>

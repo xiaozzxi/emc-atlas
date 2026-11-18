@@ -1,0 +1,9 @@
+dataset,condition,species,protein_id,gene,log2fc,p,padj,p_source,value_type,presence,n_ko,n_ctrl,membrane,membrane_basis,human_accession,human_gene,ortho_support,ortho_evidence,ortho_n_human,human_match_by,coverage,source_value,emc_subunit
+Sun2024,Emc6 rod KO retina,mouse,,Cep250,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,False,not an orthologue of the human membrane list,,,,,0,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Cnga1,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,True,orthologue of human membrane list,P29973,CNGA1,"3 of 3 (Ensembl, MGI, PANTHER)",pair call,1,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Tmem67,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,True,orthologue of human membrane list,Q5HYA8,TMEM67,"3 of 3 (Ensembl, MGI, PANTHER)",pair call,1,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Poc5,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,False,not an orthologue of the human membrane list,,,,,0,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Slc4a1,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,True,orthologue of human membrane list,P02730,SLC4A1,"3 of 3 (Ensembl, MGI, PANTHER)",pair call,1,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Elmod2,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,False,not an orthologue of the human membrane list,,,,,0,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Ano2,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,True,orthologue of human membrane list,Q9NQ90,ANO2,"3 of 3 (Ensembl, MGI, PANTHER)",pair call,1,,named proteins,,
+Sun2024,Emc6 rod KO retina,mouse,,Cep290,,,,"authors (called at 1.2-fold, p < 0.05; values not given)",named,down,3,3,False,not an orthologue of the human membrane list,,,,,0,,named proteins,,
