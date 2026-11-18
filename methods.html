@@ -53,13 +53,30 @@
 
   <section class="card pad prose">
     <h2>EMC complex status</h2>
-    <p>For each condition we take the change of every EMC subunit other than the one perturbed and use their median. The complex is called <b>lost</b> at 2-fold lower or more (median at or below −1), <b>reduced</b> at 1.5- to 2-fold lower (−1 to −0.585) and <b>intact</b> otherwise. The subunit values are always shown next to the label, because a median can hide a subunit-specific pattern; in T. brucei, for example, TbEMC8 knockdown lowers TbEMC3 and TbEMC2 while the other subunits stay flat. Where a paper reports no subunits, the status is inferred from the subunit perturbed (loss of EMC3, EMC5 or EMC6, and in practice EMC2, destabilises the complex; loss of EMC4, EMC8, EMC9 or EMC10 does not) and is marked as inferred.</p>
+    <p>For each condition we look at the change of every EMC subunit that was measured. The complex is called <b>lost</b> when the subunits other than the one perturbed fall 2-fold or more (median log2 change at or below −1). It is called <b>altered</b> when the whole complex does not fall but any subunit, the perturbed one included, falls 2-fold or more, the other subunits fall 1.5-fold or more on average, or the perturbed subunit was knocked out and is not detected. In T. brucei, for example, TbEMC8 knockdown lowers TbEMC3 and TbEMC2 while the other subunits stay flat, so the complex is altered even though most of it remains. It is called <b>intact</b> only when the perturbation cannot be seen in any subunit (for example the EMC4 knockout clones of Tian 2019, where EMC4 itself is only 1.7-fold lower). Where a paper reports no subunits, the state is inferred from the subunit perturbed and marked as inferred. The subunit values are always shown next to the label.</p>
+    <p>The complex state describes each experiment; it does not enter the ranking score, because losing a single subunit such as EMC4 impairs EMC function without necessarily dismantling the complex.</p>
+  </section>
+
+  <section class="card pad prose" id="ranking">
+    <h2>Consensus ranking</h2>
+    <p>The <a href="ranking.html">ranking</a> asks which proteins change most consistently when the EMC is perturbed, across all datasets at once. It uses human proteins: a protein from another species enters through its human orthologue on the membrane list, and proteins from human datasets enter directly.</p>
+    <ul class="plain">
+      <li><b>One value per dataset.</b> The conditions of a dataset (clones, tissues, subunits, time points) are averaged, so that no paper counts more than once.</li>
+      <li><b>Size of change, on a common scale.</b> Each log2 change is divided by the typical spread of its condition (1.4826 × the median absolute deviation over all measured proteins, with a floor of 0.2 so that very tight datasets cannot overstate small changes). A scaled change of 2 therefore means twice the normal scatter of that experiment. Hit lists use a spread of 0.3. A protein seen in one condition only counts as ±4; a protein named as changed without a value counts as ±2. Any single value is capped at ±6.</li>
+      <li><b>Confidence from the p-value.</b> Each scaled change is multiplied by a confidence of 1 at p ≤ 0.01, 0.5 at p = 0.1 and at least 0.1, rising with −log10 p. Values without a p-value (unreplicated experiments, hit lists, proteins seen in one condition only) get 0.5. The four Volkmar 2019 clones are treated as replicates of one core-subunit loss and tested together. The p-values come from different tests in different papers, so they damp the score rather than define it.</li>
+      <li><b>Weights.</b> Coverage (full table 1, called hits 0.5, named proteins 0.25) multiplied by orthology confidence for non-human data (a pair supported by two or more sources 1, a single-source pair 0.75, a family-level match 0.5). Species and the state of the complex are not weighted.</li>
+      <li><b>EMC subunits</b> are ranked like any other protein, except that the perturbed subunit is left out of its own dataset, because its loss is the perturbation rather than a readout.</li>
+      <li><b>Score.</b> The sum of weight × confident scaled change, divided by the sum of weights plus 2. The extra 2 acts as two full datasets reporting no change, so a protein seen in one dataset cannot outrank one that falls consistently in many. Negative scores mean lower on EMC loss.</li>
+      <li><b>Two views.</b> <i>All species</i> uses every dataset; <i>Human and mouse</i> uses only those, for proteins whose dependence may not be conserved. The species column shows where a protein clearly changes (scaled change beyond ±2 with p ≤ 0.1 or no p-value): H human, M mouse, X Xenopus, Y yeast, T T. brucei.</li>
+    </ul>
+    <p>The settings are listed in <a href="data/ranking.json">ranking.json</a> with the spread used for every condition, and the full ranking is in <a href="downloads/ranking.csv">ranking.csv</a>.</p>
   </section>
 
   <section class="card pad prose" id="code">
     <h2>Downloads and code</h2>
     <ul class="plain">
       <li><a href="downloads/emc_long.csv">emc_long.csv</a>: every value, one row per protein per dataset per condition, with its source and rules (<a href="downloads/README.md">column guide</a>).</li>
+      <li><a href="downloads/ranking.csv">ranking.csv</a>: the consensus score for every protein, with its value in each dataset.</li>
       <li><a href="downloads/conditions.csv">conditions.csv</a>: one row per condition, with EMC subunit values and complex status.</li>
       <li><a href="downloads/code/build.py">build.py</a> builds the table from the original files; <a href="downloads/code/export_site.py">export_site.py</a> writes the site’s data; <a href="downloads/code/datasets_meta.py">datasets_meta.py</a> holds the text of each dataset page.</li>
       <li><a href="downloads/code/tang2017_tableS2B.csv">tang2017_tableS2B.csv</a>: Tang 2017 Table S2B, transcribed from the image in the supplement.</li>

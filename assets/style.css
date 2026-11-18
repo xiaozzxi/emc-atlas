@@ -46,7 +46,7 @@ p{margin:0}
 
 .badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 8px;border-radius:4px;white-space:nowrap}
 .badge.lost{background:var(--lost);color:#fff}
-.badge.reduced{background:var(--reduced-bg);color:var(--accent-dark)}
+.badge.altered{background:var(--reduced-bg);color:var(--accent-dark)}
 .badge.intact{background:var(--chip);color:var(--ink2)}
 .badge.nm{font-weight:500;border:1px solid #c9cdd3;color:var(--muted);background:#fff}
 .badge.inferred{font-weight:500;border:1px dashed #8b929c;color:var(--ink2);background:#fff}

@@ -440,7 +440,7 @@ META = [
     ('Sun2024', 'Emc6 rod KO retina', [6], 'Emc6 rod-specific knockout', 'Mouse retina, 4 weeks', 'n=3; eight proteins named', 'Sun 2023 Genes Dis_paper.pdf, Fig. 6B'),
     ('Liu2022', 'Emc10 KO sperm', [10], 'Emc10 knockout', 'Mouse sperm', 'Two proteins named; no data', 'Liu 2022 IJMS (text)'),
 ]
-INFERRED = {3: 'lost', 6: 'lost', 10: 'intact'}
+INFERRED = {3: 'lost', 6: 'lost', 10: 'altered'}
 
 by_cond = defaultdict(list)
 for r in ROWS:
@@ -455,9 +455,33 @@ for ds, cond, pert, what, system, design, src in META:
     target = [round(st.mean(sub_vals[s]), 2) for s in pert if s in sub_vals]
     others = {s: st.mean(v) for s, v in sub_vals.items() if s not in pert}
     med = st.median(others.values()) if others else None
-    status = 'not measurable' if med is None else ('lost' if med <= -1 else ('reduced' if med <= -FC15 else 'intact'))
-    basis = 'none of the other subunits detected' if not others else (
-        'one other subunit measured' if len(others) == 1 else f'median of {len(others)} other subunits')
+    # Complex state, from the subunits measured in this condition:
+    #   lost     the subunits not perturbed fall 2-fold or more (median log2 <= -1)
+    #   altered  otherwise, if any subunit (the perturbed one included) falls 2-fold or more, the median of the
+    #            others falls 1.5-fold or more, or the perturbed subunit was knocked out or deleted and is not detected
+    #   intact   no subunit falls 2-fold, the median does not fall 1.5-fold, and the perturbed subunit is still detected
+    #            (i.e. the perturbation itself is not visible in the subunits)
+    knockout = any(w in what.lower() for w in ('knockout', 'deletion'))
+    allsubs = dict(others); allsubs.update({s: v for s, v in zip(pert, target)})
+    drops = sorted((v, s) for s, v in allsubs.items() if v <= -1)
+    reasons = []
+    if med is not None:
+        reasons.append(f'median of {len(others)} other subunit{"s" if len(others) != 1 else ""} {med:+.2f}'.replace('-', '\u2212'))
+    if med is None and not target and not knockout:
+        status = 'not measurable'
+    elif med is not None and med <= -1:
+        status = 'lost'
+    elif drops or (med is not None and med <= -FC15) or (knockout and not target):
+        status = 'altered'
+        if drops:
+            reasons.append('; '.join(f'EMC{s} {v:+.2f}' + (' (perturbed)' if s in pert else '') for v, s in drops[:3]).replace('-', '\u2212'))
+        if knockout and not target:
+            reasons.append(f'EMC{pert[0]} knocked out, not detected')
+    else:
+        status = 'intact'
+        if target:
+            reasons.append(f'EMC{pert[0]} (perturbed) only {target[0]:+.2f}'.replace('-', '\u2212'))
+    basis = '; '.join(reasons) if reasons else 'none of the subunits detected'
     full = all(r['coverage'] == 'full table' for r in rows)
     if not full:
         if others:

@@ -17,7 +17,7 @@
    "verdict": "reproduces",
    "reproduction": "Reproduces exactly: our values match the authors’ table (r = 1.000), with EMC8 at −5.35 log2. Fourteen proteins pass adjusted p < 0.05 and thirty pass adjusted p < 0.1.",
    "caveats": [
-    "EMC8 is a peripheral subunit. The other subunits fall modestly (median −0.67) and its paralogue EMC9 rises (+2.42), so the complex is reduced rather than lost."
+    "EMC8 is a peripheral subunit. The other subunits fall modestly (median −0.67) and its paralogue EMC9 rises (+2.42), so the complex is altered rather than lost."
    ],
    "conditions": [
     {
@@ -37,8 +37,8 @@
       "10": -0.67
      },
      "median": -0.67,
-     "status": "reduced",
-     "basis": "median of 9 other subunits",
+     "status": "altered",
+     "basis": "median of 9 other subunits −0.67; EMC8 −5.35 (perturbed); EMC2 −1.23; EMC4 −1.14",
      "n_proteins": 9200,
      "n_quantified": 9183,
      "n_membrane": 1545
@@ -72,7 +72,7 @@
    "verdict": "holds",
    "reproduction": "Holds: the 11 proteins the authors call hits (median 4 transmembrane segments) are recovered. The two guides agree (r = 0.73), and 67 proteins fall below −0.5 log2 with both, including all 11.",
    "caveats": [
-    "EMC2 knockdown loses the complex (other subunits median −1.13); EMC4 knockdown leaves it intact (−0.07), so the two guides are not equivalent perturbations."
+    "EMC2 knockdown loses the whole complex (other subunits median −1.13). EMC4 knockdown lowers EMC4 itself 2.89 log2 but leaves the other subunits in place (median −0.07), so the complex is altered rather than lost."
    ],
    "conditions": [
     {
@@ -92,7 +92,7 @@
      },
      "median": -1.13,
      "status": "lost",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits −1.13",
      "n_proteins": 5948,
      "n_quantified": 5948,
      "n_membrane": 775
@@ -113,8 +113,8 @@
       "10": -0.2
      },
      "median": -0.07,
-     "status": "intact",
-     "basis": "median of 8 other subunits",
+     "status": "altered",
+     "basis": "median of 8 other subunits −0.07; EMC4 −2.89 (perturbed)",
      "n_proteins": 5948,
      "n_quantified": 5948,
      "n_membrane": 775
@@ -148,7 +148,7 @@
    "verdict": "does not reproduce",
    "reproduction": "Does not reproduce: the paper names 36 EMC-dependent proteins, but at 1.5-fold and p < 0.05 in both knockouts 14 proteins pass.",
    "caveats": [
-    "The two knockouts are not equivalent: the complex survives in the EMC4 clones (other subunits median +0.12) and is lost in the EMC6 clones (−1.57)."
+    "The two knockouts are not equivalent: the EMC6 clones lose the complex (other subunits median −1.57), whereas in the EMC4 clones the other subunits are unchanged (+0.12) and EMC4 itself is only 1.7-fold lower (−0.76), so the knockout is not visible in the subunits."
    ],
    "conditions": [
     {
@@ -168,7 +168,7 @@
      },
      "median": 0.12,
      "status": "intact",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits +0.12; EMC4 (perturbed) only −0.76",
      "n_proteins": 4446,
      "n_quantified": 4446,
      "n_membrane": 807
@@ -190,7 +190,7 @@
      },
      "median": -1.57,
      "status": "lost",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits −1.57",
      "n_proteins": 4446,
      "n_quantified": 4446,
      "n_membrane": 807
@@ -226,7 +226,7 @@
    "caveats": [
     "SOAT1 was not detected in this proteome; the paper’s SOAT1 claim rests on immunoblots.",
     "The EMC5 and EMC6 runs behave as one core-subunit experiment with four clones; clone #6-14 is the outlier.",
-    "Only one other EMC subunit is detected per run, so the complex call rests on one subunit.",
+    "Only one other EMC subunit is detected per run, so the complex call rests on one subunit (EMC2 in the EMC5 runs, EMC1 in the EMC6 runs).",
     "The cell-surface fraction was never deposited."
    ],
    "conditions": [
@@ -240,7 +240,7 @@
      },
      "median": -3.0,
      "status": "lost",
-     "basis": "one other subunit measured",
+     "basis": "median of 1 other subunit −3.00",
      "n_proteins": 731,
      "n_quantified": 731,
      "n_membrane": 108
@@ -255,7 +255,7 @@
      },
      "median": -1.04,
      "status": "lost",
-     "basis": "one other subunit measured",
+     "basis": "median of 1 other subunit −1.04",
      "n_proteins": 731,
      "n_quantified": 731,
      "n_membrane": 108
@@ -270,7 +270,7 @@
      },
      "median": -1.28,
      "status": "lost",
-     "basis": "one other subunit measured",
+     "basis": "median of 1 other subunit −1.28",
      "n_proteins": 848,
      "n_quantified": 848,
      "n_membrane": 128
@@ -284,8 +284,8 @@
       "1": -0.97
      },
      "median": -0.97,
-     "status": "reduced",
-     "basis": "one other subunit measured",
+     "status": "altered",
+     "basis": "median of 1 other subunit −0.97; EMC6 knocked out, not detected",
      "n_proteins": 848,
      "n_quantified": 848,
      "n_membrane": 128
@@ -355,7 +355,7 @@
      },
      "median": -2.07,
      "status": "lost",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits −2.07",
      "n_proteins": 5827,
      "n_quantified": 5827,
      "n_membrane": 969
@@ -377,7 +377,7 @@
      },
      "median": -1.34,
      "status": "lost",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits −1.34",
      "n_proteins": 6251,
      "n_quantified": 6251,
      "n_membrane": 958
@@ -399,7 +399,7 @@
      },
      "median": -2.15,
      "status": "lost",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits −2.15",
      "n_proteins": 5268,
      "n_quantified": 5268,
      "n_membrane": 702
@@ -453,7 +453,7 @@
      },
      "median": -1.67,
      "status": "lost",
-     "basis": "median of 8 other subunits",
+     "basis": "median of 8 other subunits −1.67",
      "n_proteins": 2884,
      "n_quantified": 2878,
      "n_membrane": 509
@@ -514,7 +514,7 @@
      "others": {},
      "median": null,
      "status": "not measurable",
-     "basis": "none of the other subunits detected",
+     "basis": "none of the subunits detected",
      "n_proteins": 1568,
      "n_quantified": 935,
      "n_membrane": 147
@@ -550,11 +550,12 @@
    "replicates": "Three morpholino and three control samples",
    "fraction": "Whole-embryo proteome, label-free",
    "reanalysis": "log2 of the mean normalised abundance, morpholino over control, with the authors’ ANOVA p and q values. Every accession in a protein group is matched; obsolete accessions were traced through UniProt and UniParc.",
-   "verdict": "not checked",
-   "reproduction": "Not yet checked against the paper’s claims.",
+   "verdict": "partly",
+   "reproduction": "Partly reproduces. The proteins behind the paper’s WNT, integrin and cadherin pathway calls are lower at the authors’ unadjusted threshold (ANOVA p < 0.05), but the changes are small and none survives correction for multiple testing: β-catenin (ctnnb1) is 1.2-fold lower (−0.27 log2, p = 0.026, q = 0.71), and of 173 proteins at p < 0.05 only two (sp1 and agr2) have q < 0.05. Fzd2 is lower (−0.45) but not significant, as the paper states. Membrane proteins are not over-represented among the decreased proteins (7 of 70 proteins at least 1.5-fold lower, against 264 of 2,514 overall), and multi-pass proteins are not lower than soluble proteins (median log2 change −0.03 against −0.06).",
    "caveats": [
+    "Whole embryos at stage 24: only about one protein in ten detected is a membrane protein, so the experiment has little power to see membrane-protein loss.",
     "Only about half of the deposited accessions are still current in UniProt. 209 protein groups carry retired gene-model identifiers with no current entry and have no membrane call or orthologue.",
-    "emc1 itself was not detected; four other subunits were, with a median of −0.52 (complex intact by our rule)."
+    "emc1 itself was not detected; four other subunits were, with a median of −0.52 and emc7 at −1.00 (complex altered), although none of these changes is significant."
    ],
    "conditions": [
     {
@@ -569,8 +570,8 @@
       "8": -0.25
      },
      "median": -0.52,
-     "status": "intact",
-     "basis": "median of 4 other subunits",
+     "status": "altered",
+     "basis": "median of 4 other subunits −0.52; EMC7 −1.00",
      "n_proteins": 2847,
      "n_quantified": 2680,
      "n_membrane": 278
@@ -604,7 +605,7 @@
    "verdict": "not testable",
    "reproduction": "A ranked list only, without replicates: 32, 58 and 81 proteins fall more than 2-fold in emc3Δ, emc4Δ and emc6Δ. The paper reports 38 membrane proteins as significantly reduced using its own pipeline.",
    "caveats": [
-    "emc6Δ loses the complex (other subunits median −1.31); emc3Δ and emc4Δ do not by our rule, although Emc4 falls 2.13 log2 in emc3Δ."
+    "emc6Δ loses the complex (other subunits median −1.31). In emc3Δ Emc4 falls 2.13 log2, and in emc4Δ Emc4 is gone, so both are altered without the whole complex falling."
    ],
    "conditions": [
     {
@@ -620,8 +621,8 @@
       "7": -0.55
      },
      "median": -0.55,
-     "status": "intact",
-     "basis": "median of 5 other subunits",
+     "status": "altered",
+     "basis": "median of 5 other subunits −0.55; EMC4 −2.13; EMC3 knocked out, not detected",
      "n_proteins": 4216,
      "n_quantified": 4079,
      "n_membrane": 832
@@ -638,8 +639,8 @@
       "7": -0.47
      },
      "median": -0.28,
-     "status": "intact",
-     "basis": "median of 4 other subunits",
+     "status": "altered",
+     "basis": "median of 4 other subunits −0.28; EMC4 −2.82 (perturbed)",
      "n_proteins": 4216,
      "n_quantified": 4079,
      "n_membrane": 832
@@ -658,7 +659,7 @@
      },
      "median": -1.31,
      "status": "lost",
-     "basis": "median of 5 other subunits",
+     "basis": "median of 5 other subunits −1.31",
      "n_proteins": 4216,
      "n_quantified": 4079,
      "n_membrane": 832
@@ -697,7 +698,7 @@
    "verdict": "holds",
    "reproduction": "Holds: the Kennedy-pathway enzymes are unchanged, as the paper states. Few proteins change (2 to 12 per condition at 1.5-fold and p < 0.05).",
    "caveats": [
-    "TbEMC3 RNAi lowers only TbEMC3; TbEMC8 RNAi also lowers TbEMC3 (−2.44) and TbEMC2 (−1.65) while the other subunits stay flat. The median rule calls the complex intact in both, so read the subunit strip.",
+    "TbEMC3 RNAi lowers only TbEMC3; TbEMC8 RNAi also lowers TbEMC3 (−2.44) and TbEMC2 (−1.65) while the other subunits stay flat. The complex is altered in every condition, through loss of TbEMC3, without the whole complex falling.",
     "Fig. 1 of the paper labels TbEMC8 as Tb927.7.1570; the RNAi target in the methods and data is Tb927.8.1570.",
     "Human orthologues for T. brucei include family-level matches; each is marked."
    ],
@@ -715,8 +716,8 @@
       "10": -0.29
      },
      "median": -0.28,
-     "status": "intact",
-     "basis": "median of 5 other subunits",
+     "status": "altered",
+     "basis": "median of 5 other subunits −0.28; EMC3 −2.35 (perturbed)",
      "n_proteins": 3064,
      "n_quantified": 3064,
      "n_membrane": 218
@@ -734,8 +735,8 @@
       "10": -0.05
      },
      "median": -0.05,
-     "status": "intact",
-     "basis": "median of 5 other subunits",
+     "status": "altered",
+     "basis": "median of 5 other subunits −0.05; EMC3 −2.37 (perturbed)",
      "n_proteins": 3063,
      "n_quantified": 3063,
      "n_membrane": 216
@@ -752,8 +753,8 @@
       "10": -0.13
      },
      "median": -0.27,
-     "status": "intact",
-     "basis": "median of 4 other subunits",
+     "status": "altered",
+     "basis": "median of 4 other subunits −0.27; EMC8 −2.66 (perturbed); EMC3 −2.44",
      "n_proteins": 2650,
      "n_quantified": 2650,
      "n_membrane": 197
@@ -770,8 +771,8 @@
       "10": -0.1
      },
      "median": -0.5,
-     "status": "intact",
-     "basis": "median of 4 other subunits",
+     "status": "altered",
+     "basis": "median of 4 other subunits −0.50; EMC8 −2.31 (perturbed); EMC2 −1.65",
      "n_proteins": 2589,
      "n_quantified": 2589,
      "n_membrane": 174
@@ -873,7 +874,7 @@
      },
      "median": -1.71,
      "status": "lost",
-     "basis": "median of 3 other subunits, from a filtered list",
+     "basis": "median of 3 other subunits −1.71, from a filtered list",
      "n_proteins": 5945,
      "n_quantified": 20,
      "n_membrane": 923
@@ -996,7 +997,7 @@
    "verdict": "not testable",
    "reproduction": "No data are available.",
    "caveats": [
-    "EMC10 is peripheral; the complex is inferred to be intact."
+    "EMC10 is a peripheral subunit; its loss alters the complex without dismantling it (inferred, no data)."
    ],
    "conditions": [
     {
@@ -1006,7 +1007,7 @@
      "target": null,
      "others": {},
      "median": null,
-     "status": "intact",
+     "status": "altered",
      "basis": "inferred from the subunit perturbed; subunits not reported",
      "n_proteins": 2,
      "n_quantified": 0,

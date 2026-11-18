@@ -20,13 +20,13 @@ const EMC = (() => {
   };
 
   // complex status
-  const STATUS = { lost: 'Complex lost', reduced: 'Complex reduced', intact: 'Complex intact', 'not measurable': 'Not measurable' };
+  const STATUS = { lost: 'Complex lost', altered: 'Complex altered', intact: 'Complex intact', 'not measurable': 'Not measurable' };
   const shade = (v) => v <= -2 ? ['#1d4f91', '#fff'] : v <= -1 ? ['#3f6fae', '#fff'] : v <= -0.585 ? ['#a9c1e3', '#1b1f24'] : v < 0.585 ? ['#eef0f3', '#3a4048'] : v < 1 ? ['#f1c9a5', '#1b1f24'] : ['#a8510b', '#fff'];
   const SUBUNITS = { yeast: [1, 2, 3, 4, 5, 6, 7, 10] };
   const SPECIES = { human: 'Human', mouse: 'Mouse', yeast: 'Yeast', 'X. tropicalis': 'X. tropicalis', 'T. brucei': 'T. brucei' };
   function badge(c) {
     const inferred = c.basis && c.basis.startsWith('inferred');
-    if (inferred) return `<span class="badge inferred" title="${esc(c.basis)}">${c.status === 'lost' ? 'Lost' : 'Intact'}, inferred</span>`;
+    if (inferred) return `<span class="badge inferred" title="${esc(c.basis)}">${c.status === 'lost' ? 'Lost' : 'Altered'}, inferred</span>`;
     const cls = c.status === 'not measurable' ? 'nm' : c.status;
     return `<span class="badge ${cls}" title="${esc(c.basis || '')}">${STATUS[c.status] || c.status}</span>`;
   }
@@ -46,7 +46,7 @@ const EMC = (() => {
   }
 
   function header(active) {
-    const items = [['index.html', 'Datasets'], ['protein.html', 'Proteins'], ['access.html', 'Data access'], ['methods.html', 'Methods']];
+    const items = [['index.html', 'Datasets'], ['ranking.html', 'Ranking'], ['protein.html', 'Proteins'], ['access.html', 'Data access'], ['methods.html', 'Methods']];
     const nav = items.map(([h, l]) => `<a href="${h}" class="${active === h ? 'on' : ''}">${l}</a>`).join('');
     document.body.insertAdjacentHTML('afterbegin', `<header class="site"><div class="wrap">
       <a class="brand" href="index.html"><b>EMC perturbation proteomics</b><span>Published EMC knockout and knockdown proteomes, re-analysed on common terms</span></a>

@@ -4,6 +4,7 @@ EMC.header('protein.html');
   const e = EMC.esc, page = document.getElementById('page');
   const key = EMC.qs('p');
   const [D, P] = await Promise.all([EMC.getJSON('data/datasets.json'), EMC.getJSON('data/proteins.json')]);
+  const Kp = key ? EMC.getJSON('data/ranking.json') : null;
   const byId = Object.fromEntries(D.datasets.map(d => [d.id, d]));
 
   if (!key) {
@@ -67,7 +68,7 @@ EMC.header('protein.html');
       ${acc ? `<div class="small">UniProt <a class="mono" href="https://www.uniprot.org/uniprotkb/${e(acc)}">${e(acc)}</a></div>` : ''}
       ${otherNames.length ? `<div class="small">Also measured as ${otherNames.slice(0, 12).map(e).join(', ')}</div>` : ''}
       <div class="pills">${isHuman ? (mem ? '<span class="pill mem">On the human membrane protein list</span>' : '<span class="pill">Not on the human membrane protein list</span>') : ''}
-        <span class="pill">Measured in ${seen.size} of ${D.datasets.length} datasets</span></div>
+        <span class="pill">Measured in ${seen.size} of ${D.datasets.length} datasets</span><span id="rk"></span></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end"><span class="tiny">Show</span>
       <div class="seg" role="group" aria-label="Which datasets to show"><button id="sAll" class="on">All datasets</button><button id="sFull">Full tables only</button></div></div>
@@ -83,6 +84,13 @@ EMC.header('protein.html');
     <div class="card-foot">log2 change of the perturbed sample over its control; values beyond the axis are drawn at its edge. * converted from the value printed in the paper (see the dataset page). For datasets that publish only selected proteins, a protein that is missing is unknown, not unchanged.
     ${missing.length ? `<br><b>Not found in these full tables:</b> ${missing.map(d => `<a href="dataset.html?id=${d.id}">${e(d.short)}</a>`).join(', ')}. ${isHuman ? 'For other species this means either not detected or no orthologue mapped.' : 'Not detected.'}` : ''}</div>
   </section>`;
+  Kp.then(K => {
+    const r = K.rows.find(x => x.key === key); if (!r || r.n < 2) return;
+    const pool = K.rows.filter(x => x.n >= 3 && Math.sign(x.s) === Math.sign(r.s));
+    const ordered = r.s < 0 ? pool : pool.slice().reverse();
+    const pos = ordered.findIndex(x => x.key === key);
+    document.getElementById('rk').innerHTML = `<a class="pill" href="ranking.html" style="text-decoration:none">Consensus score ${EMC.fc(r.s)}${pos >= 0 ? ` \u00b7 rank ${pos + 1} of ${ordered.length} ${r.s < 0 ? 'decreased' : 'increased'}` : ''}${r.sm !== null && r.nm >= 3 ? ` \u00b7 human and mouse ${EMC.fc(r.sm)}` : ''}</a>`;
+  }).catch(() => {});
   const tb = document.getElementById('tb');
   const setF = (full) => { document.getElementById('sAll').classList.toggle('on', !full); document.getElementById('sFull').classList.toggle('on', full); tb.querySelectorAll('tr[data-cov]').forEach(tr => tr.hidden = full && tr.dataset.cov !== 'full table'); };
   document.getElementById('sAll').onclick = () => setF(false);

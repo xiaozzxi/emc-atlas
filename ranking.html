@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMC perturbation proteomics: ranking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:,">
+<style>
+.dsq{width:16px;height:16px;border-radius:3px;display:inline-block}
+.dsq.na{background:#fff;border:1px dashed #c9cdd3}
+.dstrip{display:grid;grid-template-columns:repeat(15,16px);gap:3px}
+.dhead{display:grid;grid-template-columns:repeat(15,16px);gap:3px;height:96px;align-items:end}
+.dhead span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;white-space:nowrap;line-height:16px}
+.score{font-family:var(--mono);font-weight:500}
+.bar{height:8px;border-radius:2px;display:inline-block;vertical-align:middle}
+</style>
+</head>
+<body>
+<main><div class="wrap">
+  <section style="display:flex;flex-direction:column;gap:10px">
+    <h1>Ranking</h1>
+    <p class="lead">Proteins ranked by how consistently they fall (or rise) when the EMC is perturbed, across every dataset that measured them. Each dataset contributes one value: the size of the change on a common scale, damped when its p-value is weak, and weighted by how complete the dataset is and how confident the orthologue is. A protein ranks highly only if several datasets agree. EMC subunits are ranked too, except for the subunit perturbed in each dataset. <a href="methods.html#ranking">How the score is calculated</a></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <div class="tabs" role="tablist" id="dir">
+          <button data-d="down" class="on" role="tab">Decreased on EMC loss</button>
+          <button data-d="up" role="tab">Increased on EMC loss</button>
+        </div>
+        <div class="seg" role="group" aria-label="Datasets used" id="view"><button data-v="all" class="on">All species</button><button data-v="mam">Human and mouse</button></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <label class="small" for="minn">Measured in at least</label>
+        <select id="minn"><option value="2">2 datasets</option><option value="3" selected>3 datasets</option><option value="5">5 datasets</option><option value="8">8 datasets</option></select>
+        <label class="check"><input type="checkbox" id="mem"> Membrane proteins only</label>
+        <label class="check"><input type="checkbox" id="emc" checked> Include EMC subunits</label>
+        <label class="sr" for="q">Filter</label><input type="search" id="q" placeholder="Filter by name" style="width:170px">
+        <a class="btn" href="downloads/ranking.csv" download>CSV</a>
+      </div>
+    </div>
+    <div class="tbox"><table class="t" style="min-width:980px">
+      <thead><tr>
+        <th class="num">Rank</th><th>Protein</th><th>Membrane</th><th class="num">Score</th><th class="num">Datasets</th><th>Clear changes</th><th>Species</th>
+        <th style="padding-bottom:6px"><div class="dhead" id="dhead"></div></th>
+      </tr></thead>
+      <tbody id="tb"><tr><td colspan="8" class="loading">Loading…</td></tr></tbody>
+    </table></div>
+    <div class="pager"><button id="prev">Previous</button><span id="pinfo"></span><button id="next">Next</button></div>
+    <div class="card-foot" id="legend"></div>
+  </section>
+</div></main>
+<script src="assets/common.js"></script>
+<script src="assets/ranking.js"></script>
+</body>
+</html>

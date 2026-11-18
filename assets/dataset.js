@@ -49,7 +49,7 @@ EMC.header('index.html');
     <aside class="side">
       <section class="card pad" style="display:flex;flex-direction:column;gap:14px">
         <h3>EMC complex</h3>
-        <p class="small">Log2 change of EMC1 to EMC10; the label uses the median of the subunits not perturbed. Lost at 2-fold down or more, reduced at 1.5- to 2-fold, intact otherwise. The ringed square is the subunit perturbed.</p>
+        <p class="small">Log2 change of EMC1 to EMC10; the ringed square is the subunit perturbed. Lost: the other subunits fall 2-fold or more (median). Altered: any subunit, the perturbed one included, falls 2-fold or more, or the perturbed subunit was knocked out. Intact: the perturbation is not visible in any subunit.</p>
         ${complexHTML}
       </section>
       <section class="card pad" id="downloads" style="display:flex;flex-direction:column;gap:8px">
