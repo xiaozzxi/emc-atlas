@@ -324,6 +324,7 @@ for k, dsd in per.items():
                  'c': [cells.get(d) for d in ORDER]})
     _a, _t = topo_for(k)
     rank[-1]['tc'] = _t['c'] if _t else ('sol' if not memb.get(k) else 'na')
+    if _t and (label.get(k) or '').upper() in TN.OVERRIDE: rank[-1]['tc'] = 'man'
     _nt = TN.NOTES.get((label.get(k) or '').upper())
     if _nt: rank[-1]['nt'] = _nt
 rank.sort(key=lambda x: x['s'])
@@ -345,7 +346,10 @@ _keys = {x['key'] for x in rank} | {row[0] for row in idx}
 _out = {}
 for k in _keys:
     _a, _t = topo_for(k)
-    if _t: _out[k] = [_t['n'], _t['ss'], [v for l in _t['L'] for v in (l[0], l[1])], _t['c'], _t['h'], _a]
+    if _t:
+        _out[k] = [_t['n'], _t['ss'], [v for l in _t['L'] for v in (l[0], l[1])], _t['c'], _t['h'], _a]
+        _ov = TN.OVERRIDE.get((label.get(k) or '').upper())
+        if _ov: _out[k][3:5] = ['man', [(_t['n'] - 1 if i is None else i) for i in _ov[1]]]; _out[k].append(_ov[0])
 json.dump({'cols': ['n_tmd', 'signal_length', 'loops (length, side) from N to C', 'emc_class', 'highlighted_tmds', 'accession'], 'max_loop': LOOP_MAX,
            'rows': _out}, open(os.path.join(DATA, 'topology.json'), 'w', encoding='utf-8'), separators=(',', ':'))
 print('topology.json:', len(_out), 'proteins')

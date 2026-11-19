@@ -16,16 +16,16 @@ NOTES = {
     'FARP1': 'Modest fall in Shurtleff and Tian (log2 about −0.5)',
     'AHSG': 'Serum protein, probably carried over from the culture medium',
     # membrane, not explained
-    'HSD3B1': 'C-terminal exoplasmic tail 63 aa, just above the 50 aa limit; signal comes from mouse Hsd3b5',
-    'HSD3B2': 'C-terminal exoplasmic tail 64 aa, just above the 50 aa limit; signal comes from mouse Hsd3b5',
+    'HSD3B1': 'C-terminal exoplasmic tail 63 aa, close enough to the 50 aa limit to treat as a tail anchor; signal comes from mouse Hsd3b5',
+    'HSD3B2': 'C-terminal exoplasmic tail 64 aa, close enough to the 50 aa limit to treat as a tail anchor; signal comes from mouse Hsd3b5',
     'GRAMD2B': 'C-terminal exoplasmic tail 70 aa; falls in Tian only',
-    'TMX2': 'Annotated signal sequence followed by 54 aa before the TMD; consistent in several datasets, worth checking the annotation',
-    'CLCC1': 'Signal sequence, then a hairpin whose exoplasmic loop is 98 aa',
-    'EPHA8': 'Type I (signal sequence); falls in Stanton only',
-    'SORT1': 'Type I (signal sequence)',
-    'SORCS2': 'Type I (signal sequence); falls mainly in De Carvalho',
-    'SDC2': 'Type I (signal sequence); falls in Tian only',
-    'DSC2': 'Type I (signal sequence); falls in Tian and Marquez, rises in De Carvalho',
+    'TMX2': 'Signal sequence (UniProt agrees), then 54 aa before the TMD; treated as a pairwise-like insertion of signal sequence and TMD; falls in several datasets',
+    'CLCC1': 'Not explained. Signal sequence, a TMD1–TMD2 hairpin with a short cytosolic turn, then a 92–98 aa lumenal loop before TMD3 (UniProt agrees); falls consistently in Shurtleff, Tian and Shin. Organised by torsin, but torsins and their activators are not lower here',
+    'EPHA8': 'Type I; falls in Stanton only (log2 −1.6)',
+    'SORT1': 'Type I; falls in mouse Emc3 knockout tissue (De Carvalho) and Tian, rises in Stanton; the yeast value comes from Vps10 and is shared across the sortilin family; may follow the state of the lysosome',
+    'SORCS2': 'Type I; driven mainly by mouse Emc3 knockout tissue (De Carvalho); the yeast value comes from Vps10 and is shared across the sortilin family',
+    'SDC2': 'Type I; falls in Tian only (log2 −1.8)',
+    'DSC2': 'Type I; falls in Shurtleff, Tian and Xenopus (Marquez), rises in mouse (De Carvalho); its partner DSG2 is flat',
     # membrane, internal pair only
     'SLC44A1': 'First exoplasmic loop is 159 aa, so no first-pair call',
     'SLC44A2': 'First exoplasmic loop is 174 aa, so no first-pair call',
@@ -33,4 +33,11 @@ NOTES = {
     'FZD6': 'Signal sequence, so no first-TMD or first-pair call',
     'TMTC3': 'First exoplasmic loop is 64 aa, just above the 50 aa limit',
     'LRRC8E': 'First exoplasmic loop is 64 aa, just above the 50 aa limit',
+}
+
+# Manual calls that override the automatic class. gene: (label, TMDs to outline, 0-based; None = last TMD)
+OVERRIDE = {
+    'TMX2': ('Pairwise-like (manual call)', [0]),
+    'HSD3B1': ('Tail anchor-like (manual call)', [None]),
+    'HSD3B2': ('Tail anchor-like (manual call)', [None]),
 }
