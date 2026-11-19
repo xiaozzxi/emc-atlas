@@ -7,7 +7,7 @@ window.TOPO = (() => {
     R1: { label: 'First TMD, Nexo', css: 'expl' },
     R2: { label: 'Final TMD, short exoplasmic tail', css: 'expl' },
     pair1: { label: 'First TMD pair', css: 'pair1' },
-    pairs: { label: 'Internal pair only', css: 'pairs' },
+    pairs: { label: 'Internal TMD pair', css: 'pairs' },
     man: { label: 'Manual call', css: 'expl' },
     none: { label: 'Not explained', css: 'none' },
     sol: { label: 'Soluble', css: 'sol' },
@@ -20,7 +20,7 @@ window.TOPO = (() => {
     if (!t) return '';
     if (t.lab) return t.lab;
     if (t.c === 'R2') return t.n === 1 ? 'Tail anchor' : CLASS.R2.label;
-    if (t.c === 'pairs') return `Internal pair only (TMD${t.h[0] + 1}–${t.h[1] + 1})`;
+    if (t.c === 'pairs') return `Internal TMD pair (TMD${t.h[0] + 1}–${t.h[1] + 1})`;
     return CLASS[t.c].label;
   };
   // s = scale: 1 for the table, about 2.6 for the protein page

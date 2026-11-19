@@ -27,12 +27,12 @@ NOTES = {
     'SDC2': 'Type I; falls in Tian only (log2 −1.8)',
     'DSC2': 'Type I; falls in Shurtleff, Tian and Xenopus (Marquez), rises in mouse (De Carvalho); its partner DSG2 is flat',
     # membrane, internal pair only
-    'SLC44A1': 'First exoplasmic loop is 159 aa, so no first-pair call',
-    'SLC44A2': 'First exoplasmic loop is 174 aa, so no first-pair call',
-    'SLC9A7': 'N-terminal exoplasmic segment of 69 aa, above the 50 aa limit',
-    'FZD6': 'Signal sequence, so no first-TMD or first-pair call',
-    'TMTC3': 'First exoplasmic loop is 64 aa, just above the 50 aa limit',
-    'LRRC8E': 'First exoplasmic loop is 64 aa, just above the 50 aa limit',
+    'SLC44A1': 'First exoplasmic loop is 159 aa, so the EMC cannot act at initiation; a later internal pair is still available',
+    'SLC44A2': 'First exoplasmic loop is 174 aa, so the EMC cannot act at initiation; a later internal pair is still available',
+    'SLC9A7': 'N-terminal exoplasmic segment of 69 aa, above the 50 aa limit; a later internal pair is available',
+    'FZD6': 'Signal sequence, so the EMC cannot act at initiation; a later internal pair is available',
+    'TMTC3': 'First exoplasmic loop is 64 aa, just above the 50 aa limit; a later internal pair is available',
+    'LRRC8E': 'First exoplasmic loop is 64 aa, just above the 50 aa limit; a later internal pair is available',
 }
 
 # Manual calls that override the automatic class. gene: (label, TMDs to outline, 0-based; None = last TMD)
