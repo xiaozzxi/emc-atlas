@@ -72,6 +72,20 @@
     <p>The settings are listed in <a href="data/ranking.json">ranking.json</a> with the spread used for every condition, and the full ranking is in <a href="downloads/ranking.csv">ranking.csv</a>.</p>
   </section>
 
+  <section class="card pad prose" id="topology">
+    <h2>Topology and the EMC model</h2>
+    <p>Membrane topology comes from the human membrane protein dataset of Wu and Hegde (2026, J Cell Biol): the number of transmembrane domains (TMDs), the length and side of every loop, and whether there is a cleavable signal sequence. The cartoons follow the style of the companion <a href="https://topology.bioch.ox.ac.uk/">Membrane Protein Topology Viewer</a>: grey membrane, red TMDs, exoplasmic loops in tan above the membrane and cytosolic loops in blue below it, a grey block for the signal sequence, and dotted lines for loops longer than 100 amino acids. Loop heights grow with the logarithm of length, so long loops stay readable.</p>
+    <p>Each membrane protein is then assigned the most likely step at which the EMC acts, using the current model of EMC insertion (reviewed by Hegde and Keenan, 2024). The first rule that applies is used, and the TMDs it refers to are outlined in dark ink:</p>
+    <ul>
+      <li><b>First TMD, Nexo:</b> no signal sequence, and the first TMD puts its N-terminus in the lumen with an exoplasmic segment of 50 amino acids or less.</li>
+      <li><b>Final TMD, short exoplasmic tail</b> (or <b>tail anchor</b> for single-pass proteins): the last TMD leaves an exoplasmic C-terminal tail of 50 amino acids or less.</li>
+      <li><b>First TMD pair:</b> no signal sequence, and TMDs 1 and 2 are joined by an exoplasmic loop of 50 amino acids or less, so the EMC can act when the protein first engages the membrane.</li>
+      <li><b>Internal pair only:</b> a later pair of TMDs is joined by a short exoplasmic loop, but none of the rules above applies.</li>
+      <li><b>Not explained:</b> none of the above, for example type I proteins with a signal sequence, or tails just above the 50 amino acid limit.</li>
+    </ul>
+    <p>The 50 amino acid limit is a working cut-off rather than a sharp boundary, so proteins just above it are flagged in the notes. Soluble proteins have no cartoon. For the 100 proteins that fall most consistently, the notes give a hand-checked reading: for example, whether a soluble protein is a known partner of an EMC substrate (ATP6V0D1 with the V-ATPase V0 sector) or which datasets drive the change. The topology file is available as <a href="data/topology.json">data/topology.json</a>.</p>
+  </section>
+
   <section class="card pad prose" id="code">
     <h2>Downloads and code</h2>
     <ul class="plain">

@@ -38,23 +38,25 @@
         <label class="small" for="minn">Measured in at least</label>
         <select id="minn"><option value="2">2 datasets</option><option value="3" selected>3 datasets</option><option value="5">5 datasets</option><option value="8">8 datasets</option></select>
         <label class="check"><input type="checkbox" id="mem"> Membrane proteins only</label>
+        <label class="sr" for="tc">EMC model</label><select id="tc"><option value="">Any topology</option><option value="expl">Explained by the EMC model</option><option value="R1">First TMD, Nexo</option><option value="R2">Final TMD or tail anchor</option><option value="pair1">First TMD pair</option><option value="pairs">Internal pair only</option><option value="none">Not explained (membrane)</option><option value="sol">Soluble</option></select>
         <label class="check"><input type="checkbox" id="emc" checked> Include EMC subunits</label>
         <label class="sr" for="q">Filter</label><input type="search" id="q" placeholder="Filter by name" style="width:170px">
         <a class="btn" href="downloads/ranking.csv" download>CSV</a>
       </div>
     </div>
-    <div class="tbox"><table class="t" style="min-width:980px">
+    <div class="tbox"><table class="t" style="min-width:1280px">
       <thead><tr>
-        <th class="num">Rank</th><th>Protein</th><th>Membrane</th><th class="num">Score</th><th class="num">Datasets</th><th>Clear changes</th><th>Species</th>
+        <th class="num">Rank</th><th>Protein</th><th>Topology</th><th>EMC model</th><th class="num">Score</th><th class="num">Datasets</th><th>Clear changes</th><th>Species</th>
         <th style="padding-bottom:6px"><div class="dhead" id="dhead"></div></th>
       </tr></thead>
-      <tbody id="tb"><tr><td colspan="8" class="loading">Loading…</td></tr></tbody>
+      <tbody id="tb"><tr><td colspan="9" class="loading">Loading…</td></tr></tbody>
     </table></div>
     <div class="pager"><button id="prev">Previous</button><span id="pinfo"></span><button id="next">Next</button></div>
-    <div class="card-foot" id="legend"></div>
+    <div class="card-foot"><div class="tlegend" id="tlegend" style="margin-bottom:8px"></div><div id="legend"></div></div>
   </section>
 </div></main>
 <script src="assets/common.js"></script>
+<script src="assets/topo.js"></script>
 <script src="assets/ranking.js"></script>
 </body>
 </html>

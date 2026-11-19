@@ -73,6 +73,7 @@ EMC.header('protein.html');
     <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end"><span class="tiny">Show</span>
       <div class="seg" role="group" aria-label="Which datasets to show"><button id="sAll" class="on">All datasets</button><button id="sFull">Full tables only</button></div></div>
   </section>
+  <div id="topo" hidden></div>
   <section class="card">
     <div class="card-head"><h2>Change on EMC loss, per dataset and condition</h2>
       <div class="legend"><span><i style="background:#2c6fb7"></i>At least 1.5-fold lower</span><span><i style="background:#c2610f"></i>At least 1.5-fold higher</span><span><i style="background:#8b929c"></i>Smaller change</span><span><i style="background:#fff;border:2px solid #2c6fb7;width:8px;height:8px"></i>Converted from a printed value</span></div></div>
@@ -84,6 +85,19 @@ EMC.header('protein.html');
     <div class="card-foot">log2 change of the perturbed sample over its control; values beyond the axis are drawn at its edge. * converted from the value printed in the paper (see the dataset page). For datasets that publish only selected proteins, a protein that is missing is unknown, not unchanged.
     ${missing.length ? `<br><b>Not found in these full tables:</b> ${missing.map(d => `<a href="dataset.html?id=${d.id}">${e(d.short)}</a>`).join(', ')}. ${isHuman ? 'For other species this means either not detected or no orthologue mapped.' : 'Not detected.'}` : ''}</div>
   </section>`;
+  Promise.all([TOPO.load(), Kp]).then(([T, K]) => {
+    const v = T[key]; const r = K.rows.find(x => x.key === key);
+    if (!v) { if (r && r.nt) { const el = document.getElementById('topo'); el.hidden = false; el.innerHTML = `<section class="card"><div class="card-head"><h2>EMC model</h2></div><div style="padding:16px 20px"><span class="mchip sol">${mem ? 'No topology' : 'Soluble'}</span><div class="mnote" style="max-width:none">${e(r.nt)}</div></div></section>`; } return; }
+    const t = TOPO.unpack(v), el = document.getElementById('topo'); el.hidden = false;
+    el.innerHTML = `<section class="card"><div class="card-head"><h2>Membrane topology and the EMC model</h2><div class="tlegend">${TOPO.legend()}</div></div>
+      <div style="padding:18px 20px;display:flex;flex-wrap:wrap;gap:24px;align-items:center">
+        <div style="overflow-x:auto;max-width:100%">${TOPO.svg(t, 2.6, 1100)}</div>
+        <div style="display:flex;flex-direction:column;gap:6px;min-width:260px">
+          <div><span class="mchip ${TOPO.CLASS[t.c].css}">${e(TOPO.label(t))}</span></div>
+          ${r && r.nt ? `<div class="mnote" style="max-width:420px">${e(r.nt)}</div>` : ''}
+          <div class="small" style="white-space:pre-line">${e(TOPO.tip(t))}</div>
+          <div class="tiny">Topology from Wu and Hegde 2026 (J Cell Biol), entry ${e(t.acc)}. <a href="methods.html#topology">How the EMC model is applied</a></div></div></div></section>`;
+  }).catch(() => {});
   Kp.then(K => {
     const r = K.rows.find(x => x.key === key); if (!r || r.n < 2) return;
     const pool = K.rows.filter(x => x.n >= 3 && Math.sign(x.s) === Math.sign(r.s));

@@ -3,7 +3,7 @@
 Usage: python3 -I export_site.py <site_data_dir> <EMC_proteomics_dir> <site_dir>
 Writes <site_dir>/data/ (JSON) and <site_dir>/downloads/ (CSV + copies of the original supplementary files).
 """
-import sys, os, csv, json, hashlib, shutil
+import sys, os, csv, json, hashlib, shutil, re
 from collections import defaultdict
 
 SD, SRC, SITE = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -17,6 +17,26 @@ for d in (DATA, os.path.join(DATA, 'ds'), os.path.join(DATA, 'p'), os.path.join(
 R = list(csv.DictReader(open(os.path.join(SD, 'emc_long.csv'), encoding='utf-8')))
 COND = list(csv.DictReader(open(os.path.join(SD, 'conditions.csv'), encoding='utf-8')))
 FIELDS = list(R[0].keys())
+
+# Human proteins not on the membrane list keep each dataset's own accession, so one gene can arrive under
+# several accessions (isoforms, TrEMBL entries). Give each gene one canonical accession: the one most datasets
+# use, preferring a reviewed (6-character P/Q/O) entry on a tie.
+_byg = defaultdict(lambda: defaultdict(set))
+for r in R:
+    if r['species'] == 'human' and not r['human_match_by']:
+        g = (r['gene'] or '').split(';')[0].upper()
+        if g:
+            _byg[g][r['human_accession'] or r['protein_id'].split(';')[0]].add(r['dataset'])
+CANON = {}
+for g, accs in _byg.items():
+    CANON[g] = sorted(accs, key=lambda a: (-len(accs[a]), not re.match(r'^[OPQ][0-9][A-Z0-9]{3}[0-9]$', a), a))[0]
+n_fixed = 0
+for r in R:
+    if r['species'] == 'human' and not r['human_match_by']:
+        g = (r['gene'] or '').split(';')[0].upper()
+        if g in CANON and r['human_accession'] != CANON[g]:
+            r['human_accession'] = CANON[g]; n_fixed += 1
+print('canonical accession applied to', n_fixed, 'rows')
 NSHARD = 32
 
 
@@ -232,6 +252,51 @@ for r in R:
 ORDER = [m['id'] for m in META.DATASETS]
 SPEC = {m['id']: m['species'] for m in META.DATASETS}
 SUBS = {'EMC1', 'EMC2', 'EMC3', 'EMC4', 'MMGT1', 'EMC6', 'EMC7', 'EMC8', 'EMC9', 'EMC10'}
+# ---------------------------------------------------------------- topology (Wu and Hegde 2026, Human_Membrane_Proteins_v43)
+import openpyxl
+import topology_notes as TN
+_wb = os.path.join(SRC, 'Human_Membrane_Proteins_v43.xlsx')
+if not os.path.exists(_wb): _wb = os.path.join(SD, 'Human_Membrane_Proteins_v43.xlsx')
+_ws = openpyxl.load_workbook(_wb, read_only=True, data_only=True)['Sheet1']
+_it = _ws.iter_rows(values_only=True); _h = list(next(_it)); _ix = {c: i for i, c in enumerate(_h)}
+def _int(x):
+    try: return int(x)
+    except (TypeError, ValueError): return None
+TOPO = {}
+LOOP_MAX = 50
+for r in _it:
+    a = r[_ix['UniProt_Accession']]
+    if not a: continue
+    n = _int(r[_ix['Number_of_TMDs']]) or 0
+    if n < 1: continue
+    nloc, cloc = r[_ix['N_terminus_Location']], r[_ix['C_terminus_Location']]
+    ss = r[_ix['Has_Signal_Peptide']] == 'Yes'
+    loops = []
+    for k in range(1, n + 2):
+        if f'Loop{k}_Length' not in _ix: break
+        ln, loc = _int(r[_ix[f'Loop{k}_Length']]) or 0, r[_ix[f'Loop{k}_Location']]
+        if loc not in ('outside', 'inside'):
+            loc = nloc if k == 1 else cloc if k == n + 1 else None
+        if loc not in ('outside', 'inside'):   # internal loop with no call: alternate from the previous one
+            loc = 'inside' if loops and loops[-1][1] == 'o' else 'outside'
+        loops.append([ln, 'o' if loc == 'outside' else 'i'])
+    while len(loops) < n + 1: loops.append([0, 'o' if (len(loops) == n and cloc == 'outside') else 'i'])
+    r1 = (not ss) and loops[0][1] == 'o' and loops[0][0] <= LOOP_MAX
+    r2 = loops[n][1] == 'o' and loops[n][0] <= LOOP_MAX
+    pairs = [k for k in range(1, n) if loops[k][1] == 'o' and loops[k][0] <= LOOP_MAX]
+    if r1: cls, hl = 'R1', [0]
+    elif r2: cls, hl = 'R2', [n - 1]
+    elif pairs and pairs[0] == 1 and not ss: cls, hl = 'pair1', [0, 1]
+    elif pairs: cls, hl = 'pairs', [pairs[0] - 1, pairs[0]]
+    else: cls, hl = 'none', []
+    TOPO[a] = {'n': n, 'ss': _int(r[_ix['Signal_Length']]) or 1 if ss else 0, 'L': loops, 'c': cls, 'h': hl, 'len': _int(r[_ix['Length']])}
+print('topology:', len(TOPO), 'membrane proteins;', {c: sum(1 for t in TOPO.values() if t['c'] == c) for c in ('R1', 'R2', 'pair1', 'pairs', 'none')})
+
+def topo_for(key):
+    for a in key.split(';'):
+        if a in TOPO: return a, TOPO[a]
+    return None, None
+
 SP_CODE = {'human': 'H', 'mouse': 'M', 'X. tropicalis': 'X', 'yeast': 'Y', 'T. brucei': 'T'}
 rank = []
 for k, dsd in per.items():
@@ -257,6 +322,10 @@ for k, dsd in per.items():
                  'spu': ''.join(c for c in order if c in {SP_CODE[x] for x in sup}),
                  'm': 1 if memb.get(k) else 0, 'emc': 1 if (label.get(k) or '').upper() in SUBS else 0,
                  'c': [cells.get(d) for d in ORDER]})
+    _a, _t = topo_for(k)
+    rank[-1]['tc'] = _t['c'] if _t else ('sol' if not memb.get(k) else 'na')
+    _nt = TN.NOTES.get((label.get(k) or '').upper())
+    if _nt: rank[-1]['nt'] = _nt
 rank.sort(key=lambda x: x['s'])
 json.dump({'datasets': ORDER, 'short': [m['short'] for m in META.DATASETS], 'species': [SP_CODE[SPEC[d]] for d in ORDER],
            'params': {'coverage': W_COVERAGE, 'prior': PRIOR, 'clip': CLIP, 'spread_floor': SPREAD_FLOOR, 'hitlist_spread': HITLIST_SPREAD,
@@ -272,4 +341,12 @@ with open(os.path.join(DL, 'ranking.csv'), 'w', newline='', encoding='utf-8') as
     for x in rank:
         w.writerow([x['key'], x['g'], x['s'], x['n'], x['sm'] if x['sm'] is not None else '', x['nm'], x['dn'], x['up'], x['spd'], x['spu'],
                     x['m'], x['emc']] + [c[0] if c else '' for c in x['c']] + [c[1] if c and c[1] is not None else '' for c in x['c']])
+_keys = {x['key'] for x in rank} | {row[0] for row in idx}
+_out = {}
+for k in _keys:
+    _a, _t = topo_for(k)
+    if _t: _out[k] = [_t['n'], _t['ss'], [v for l in _t['L'] for v in (l[0], l[1])], _t['c'], _t['h'], _a]
+json.dump({'cols': ['n_tmd', 'signal_length', 'loops (length, side) from N to C', 'emc_class', 'highlighted_tmds', 'accession'], 'max_loop': LOOP_MAX,
+           'rows': _out}, open(os.path.join(DATA, 'topology.json'), 'w', encoding='utf-8'), separators=(',', ':'))
+print('topology.json:', len(_out), 'proteins')
 print('ranking:', len(rank), 'proteins;', sum(1 for x in rank if x['n'] >= 3), 'in at least 3 datasets')

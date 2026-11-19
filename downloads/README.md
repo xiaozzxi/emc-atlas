@@ -58,7 +58,7 @@ Built 18 Nov 2026 by `build.py` from the workbooks in `EMC_proteomics`. Running 
 - Human: on the human membrane list (`Cross_ref.xlsx`, 4,863 proteins), matched by accession first (isoform suffix removed) and then by gene symbol.
 - Mouse gene names printed in hit lists that MGI has since renamed are looked up under the current symbol (Emc5 as Mmgt1, Sypl as Sypl1, Pcnxl3 as Pcnx3, Mut as Mmut, Fam129a as Niban1); the printed name is kept in `gene`.
 - Mouse: two sources, both recorded in `membrane_basis`. One is being the orthologue of a protein on the human list (the `membrane` column uses this source). The other is the authors' single-pass or multi-pass annotation. Over the three tissues, 2,252 rows have both sources, 377 only the orthology and 696 only the authors' annotation.
-- Yeast, X. tropicalis, T. brucei: native UniProt topology from the orthologue workbooks. For Marquez, every accession in a protein group is tried: 1,236 groups resolve by accession and 1,269 by gene symbol. The remaining obsolete accessions were traced with `marquez_uniparc_lookup.py` (run 18 Nov 2026 on a machine that can reach rest.uniprot.org; output `marquez_uniparc_lookup.tsv`): 49 more groups resolve through a current entry with the same sequence and 84 through the gene name of the retired entry. 209 groups carry retired gene-model identifiers with no current entry and stay unresolved.
+- Yeast, X. tropicalis, T. brucei: native UniProt topology from the orthologue workbooks. For Marquez, every accession in a protein group is tried: 1,236 groups resolve by accession, 1,269 by gene symbol because the accessions are obsolete, and 342 not at all (417 obsolete accessions, no gene symbol). `marquez_uniparc_lookup.py` resolves these through UniProt's secondary accessions and UniParc; it has to run on a machine that can reach rest.uniprot.org, and `build.py` uses its output, `marquez_uniparc_lookup.tsv`, when present.
 
 ## Cross-species links
 
@@ -91,4 +91,4 @@ For each condition: the mean log2FC of each EMC subunit other than the one pertu
 | Iyer hits | 2 to 12 | 2, 2, 7, 12 |
 | De Carvalho Fitm2 down in all three tissues | yes | yes |
 | Shin floor values | six proteins | six proteins |
-| Marquez accessions resolving | 2,487 | 2,638 protein groups (all accessions in a group tried, plus UniParc) |
+| Marquez accessions resolving | 2,487 | 2,505 protein groups (all accessions in a group tried) |
